@@ -14,16 +14,19 @@ module.exports = {
 		//init runTimeData
 		runTimeData.params.pageNum = 1;
 		// request
-		this.getReq()
+		this.req()
 	},
-	getReq(){
+	req(){
 		let options = this.getOptions();
 		request.request(options,(error,res,body)=>{
 			if(error){
 				logFile.error(error);
 			}else{
 				let str = iconv.decode(body,'gbk');
-				config.all.handle(str);
+				//raw data
+				let goodsData = config.all.handle(str);
+				this.completeData(goodsData);
+				
 			}
 		})
 	},
@@ -37,5 +40,9 @@ module.exports = {
 		};
 		options = _.merge(options,globalConfig.headers);
 		return options;
+	},
+	completeData(goodsData){
+		//todo
+		return goodsData;
 	}
 }
