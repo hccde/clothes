@@ -1,8 +1,9 @@
 let config = require('./configure.js');
-let globalConfig = require('../configure.js');
 let _ = require('lodash');
+let globalConfig = require('../configure.js');
 let logFile = globalConfig.logFile;
-let request = require('request');
+
+let request = require('../lib/request');
 let iconv = require('iconv-lite');
 let runTimeData = {
 	params:_.clone(config.all.params)
@@ -17,18 +18,18 @@ module.exports = {
 	},
 	getReq(){
 		let options = this.getOptions();
-		request(options,(error,res,body)=>{
+		request.request(options,(error,res,body)=>{
 			if(error){
 				logFile.error(error);
 			}else{
 				let str = iconv.decode(body,'gbk');
-				console.log(str);
-				//handle
+				config.all.handle(str);
 			}
 		})
 	},
 	getOptions(){
 		let options = {
+			_name:'uniqlo',
 			method:'GET',
 			uri:config.all.url,
 			qs:runTimeData.params,

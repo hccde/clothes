@@ -7,6 +7,8 @@ log4js.configure({
 });
 let logFile = log4js.getLogger('log');
 
+let _requestId = -1;
+
  module.exports = {
  	headers:{
  		'User-Agent':`Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 
@@ -17,5 +19,9 @@ let logFile = log4js.getLogger('log');
  		'Cache-Control':`no-cache`,
  		'Connection':`keep-alive`,
  	},
- 	logFile:logFile
+ 	logFile:logFile,
+ 	website:['uniqlo','zara','hm'],
+ 	get requestId(){
+ 		return _requestId+1;
+ 	}
  }
