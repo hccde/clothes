@@ -15,8 +15,8 @@ module.exports = {
 		// request
 		this.req();
 		Event.addEventListener('uniqloReq',()=>{
-			console.log('haha')
-			while(config.all.currentPage<config.all.totalPage && requestFlag){
+			while(config.all.currentPage<config.all.totalPage && requestFlag && 
+				request.website['uniqlo'].length<config.concurrency){
 				this.req();
 				config.all.currentPage++;
 			}
@@ -36,6 +36,7 @@ module.exports = {
 				}else{
 					this.completeData(goodsData);
 				}
+				console.log(new Date()-startime)
 			}
 			request.remove(req);
 			Event.trigger('uniqloReq');

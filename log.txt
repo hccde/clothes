@@ -1,0 +1,9 @@
+[2017-07-05 13:34:11.191] [ERROR] log - { Error: getaddrinfo ENOTFOUND www.uniqlo.cn www.uniqlo.cn:80
+    at errnoException (dns.js:28:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:76:26)
+  code: 'ENOTFOUND',
+  errno: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'www.uniqlo.cn',
+  host: 'www.uniqlo.cn',
+  port: 80 }

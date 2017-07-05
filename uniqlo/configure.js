@@ -61,5 +61,5 @@ module.exports = {
 			return goodsData;			
 		}
 	},
-	concurrency:3
+	concurrency:10
 }
