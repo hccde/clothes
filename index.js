@@ -1,2 +1,4 @@
 let uniqlo = require('./uniqlo');
-uniqlo.run()
+let hm = require('./hm');
+hm.run();
+// uniqlo.run()
