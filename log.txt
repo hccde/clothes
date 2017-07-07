@@ -18,3 +18,11 @@
   hostname: 'www2.hm.com',
   host: 'www2.hm.com',
   port: 80 }
+[2017-07-07 15:56:50.592] [ERROR] log - fatal error:page have changed selectors have failed
+[2017-07-07 15:57:22.582] [ERROR] log - fatal error:page have changed selectors have failed
+[2017-07-07 16:04:39.745] [ERROR] log - fatal error:page have changed selectors have failed
+[2017-07-07 16:04:52.650] [ERROR] log - fatal error:page have changed selectors have failed
+[2017-07-07 16:05:15.664] [ERROR] log - fatal error:page have changed selectors have failed TypeError: console is not a function
+[2017-07-07 16:05:26.111] [ERROR] log - fatal error:page have changed selectors have failed ReferenceError: li is not defined
+[2017-07-07 16:34:11.930] [ERROR] log - fatal error:page have changed selectors have failed TypeError: Cannot read property 'urlList' of undefined
+[2017-07-07 16:36:25.785] [ERROR] log - fatal error:page have changed selectors have failed TypeError: Cannot read property 'urlCol' of undefined
