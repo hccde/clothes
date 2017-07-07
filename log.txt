@@ -7,3 +7,14 @@
   hostname: 'www.uniqlo.cn',
   host: 'www.uniqlo.cn',
   port: 80 }
+[2017-07-07 12:18:13.720] [ERROR] log - fatal:page changed,selectors have failed: TypeError: res.push is not a function
+[2017-07-07 12:22:41.981] [ERROR] log - fatal:page changed,selectors have failed: TypeError: Cannot read property 'host' of undefined
+[2017-07-07 12:31:59.140] [ERROR] log - { Error: getaddrinfo ENOTFOUND www2.hm.com www2.hm.com:80
+    at errnoException (dns.js:28:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:76:26)
+  code: 'ENOTFOUND',
+  errno: 'ENOTFOUND',
+  syscall: 'getaddrinfo',
+  hostname: 'www2.hm.com',
+  host: 'www2.hm.com',
+  port: 80 }
