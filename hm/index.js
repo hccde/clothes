@@ -14,11 +14,9 @@ module.exports = {
 				logFile.error(error);
 			}else{
 				let str = iconv.decode(body,'utf-8');
-				console.log(str);
-				let goodsData = config.handle(str);
-				console.log(goodsData);
+				let goodsData = config.handler(str);
+				// console.log(goodsData);
 				//raw data
-				// let goodsData = config.all.handle(str);
 				// if(goodsData == -1){
 					// requestFlag = false;
 				// }else{
