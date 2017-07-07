@@ -1,4 +1,6 @@
 let uniqlo = require('./uniqlo');
 let hm = require('./hm');
-hm.run();
+let zara = require('./zara');
+zara.run();
+// hm.run();
 // uniqlo.run()
