@@ -4,11 +4,11 @@ let request = require('../lib/request');
 let globalConfig = require('../configure');
 
 let logFile = globalConfig.logFile;
-let warningLimit = 20,warningCount=0,currentPage=1;
-
+let warningLimit = 20,warningCount=0,currentPage=-40;
 module.exports = {
 	all:{
 		url:'http://www.veromoda.com.cn/cn/vmstore/sysp.html',
+		totalPage:100,
 		params:{
 			manufacturer:'',
 			searchType:'',
@@ -31,13 +31,45 @@ module.exports = {
 			sizeflag:'',
 			colorflag:'',
 			occasionflag:'',
-			pageSize:0,
-			beginIndex:40,
+			pageSize:40,
+			// beginIndex:0,
 			orderBy:5,
-			categoryId:''
+			categoryId:'',
+			get beginIndex(){
+				currentPage+=40;
+				return currentPage;
+			}
 		},
+		currentPage:currentPage,
 		handler(str){
-
+			let $ = cheerio.load(str);
+			let res = [];
+			try{
+			$('.pageContainerList .HfloorTwoList >li').each((index,el)=>{
+				totalPage = parseInt($('.pageNumbers .fl').text().trim());
+				let div = $(el).find('.HfloorTwoListTitle').find('a');
+				let title = div.text().trim();
+				let href = div.attr('href');
+				let img = $(el).find('.HfloorTwoListImg').find('img').data('original');
+				let price = $(el).find('p').text().trim().split('¥').pop().trim();
+				res.push({
+					name:title,
+					href:href,
+					img:img,
+					price:price
+				})
+			})
+			}catch(e){
+				logFile.warn('uniqlo page has changed,some class selector failed');
+					warningCount++;
+					if(warningCount>=warningLimit){
+						logFile.error('veromoda page must be re-anlaysis');
+						request.kill('vero');						
+					}
+				return -1;
+			}
+			console.log(res);
 		}
-	}
+	},
+	concurrency:20
 }

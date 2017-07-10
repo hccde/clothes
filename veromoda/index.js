@@ -14,6 +14,12 @@ let startime = new Date();
 module.exports = {
 	run(){
 		this.req();
+		Event.addEventListener('veroReq',()=>{
+			while(config.all.currentPage<config.all.totalPage && requestFlag && 
+				request.website['vero'].length<config.concurrency){
+				this.req();
+			}
+		})
 	},
 	req(){
 		let options = this.getOptions();
@@ -22,18 +28,17 @@ module.exports = {
 				logFile.error(error);
 			}else{
 				let str = iconv.decode(body,'utf-8');
-				console.log(str);
+				let goodsData =  config.all.handler(str);
 				//raw data
-				// let goodsData = config.all.handle(str);
-				// if(goodsData == -1){
-				// 	requestFlag = false;
-				// }else{
-				// 	this.completeData(goodsData);
-				// }
+				if(goodsData == -1){
+					requestFlag = false;
+				}else{
+					this.completeData(goodsData);
+				}
 
 			}
-			// request.remove(req);
-			// Event.trigger('veroReq');
+			request.remove(req);
+			Event.trigger('veroReq');
 		})
 	},
 	getOptions(){
