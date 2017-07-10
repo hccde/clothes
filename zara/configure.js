@@ -81,7 +81,7 @@ module.exports = {
 			let price = $(el).find('.product-info .product-info-item-price .price').html();
 			//debug?
 			if(price){
-				price = $(price).data('price');
+				price = $(price).data('price').trim().split('¥').pop().trim();
 				goodData.push({
 					img:img,
 					href:href,
@@ -101,6 +101,7 @@ module.exports = {
 			warningCount++;
 			if(warningCount > warningLimit){
 				request.kill('zara');
+				return -1;
 			}
 		}
 		return goodData;

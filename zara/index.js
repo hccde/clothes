@@ -23,9 +23,6 @@ module.exports = {
 			}
 		})
 		Event.addEventListener('zara',()=>{
-			this.url = urlCol[count];
-			this.req();
-			return;
 			while(config.concurrenency>request.website['hm'].length &&
 				requestFlag && count<urlCol.length){
 				this.url = urlCol[count];
@@ -48,14 +45,14 @@ module.exports = {
 				let goodsData = config.handler(str,this.type);
 				console.log(goodsData)
 				//raw data
-				// if(goodsData == -1){
-					// requestFlag = false;
-				// }else{
-					// this.completeData(goodsData);
-				// }
+				if(goodsData == -1){
+					requestFlag = false;
+				}else{
+					this.completeData(goodsData);
+				}
 			}
-			// request.remove(req);
-			// Event.trigger('zara');
+			request.remove(req);
+			Event.trigger('zara');
 		})
 	},
 	getOptions(){
@@ -75,5 +72,8 @@ module.exports = {
 		0:'woman',
 		1:'man',
 		2:'kid'
+	},
+	completeData(){
+		
 	}
 }
