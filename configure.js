@@ -20,7 +20,7 @@ let _requestId = -1;
  		'Connection':`keep-alive`,
  	},
  	logFile:logFile,
- 	website:['uniqlo','zara','hm','vero'],
+ 	website:['uniqlo','zara','hm','vero','only'],
  	get requestId(){
  		return _requestId+1;
  	}
