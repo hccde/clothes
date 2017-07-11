@@ -32,7 +32,7 @@ module.exports = {
 				//raw data
 				if(goodsData == -1){
 					requestFlag = false;
-				}else{
+				}else if(goodsData){
 					this.completeData(goodsData);
 				}
 
@@ -53,7 +53,11 @@ module.exports = {
 		return options;
 	},
 	completeData(goodsData){
-		//todo
+		goodsData.forEach((e)=>{
+			e.time = 0;
+			e.id = e.href.split('/').pop().split('.').shift().trim();
+			utils.storage(e,'vero');
+		})
 		return goodsData;
 	}
 }

@@ -73,6 +73,11 @@ module.exports = {
 		2:'kid'
 	},
 	completeData(goodsData){
-			
+		goodsData.forEach((e)=>{
+			e.sex = e.type;
+			e.time = 0;
+			utils.storage(e,'zara');
+		})
+		//zara's image is wrong 
 	}
 }

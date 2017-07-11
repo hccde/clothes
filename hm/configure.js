@@ -33,8 +33,8 @@ module.exports = {
 		$('.product-item').each(function(index,el){
 			let href = host + $(el).find('a').attr('href');
 			let name = $(el).find('a').attr('title');
-			let img = 'http://lp2.hm.com'+ $(el).find('img').attr('src');
-			let price = Number($(el).find('.price').text().trim().split('¥').pop().trim());
+			let img = 'http:'+ $(el).find('img').attr('src');
+			let price = Number($(el).find('.price').text().trim().replace(',','').replace('¥','').trim());
 			res.push({
 				href:href,
 				name:name,

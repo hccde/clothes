@@ -56,11 +56,16 @@ module.exports = {
 					name:title,
 					href:href,
 					img:img,
-					price:price
+					desc:title,
+					price:Number(price),
+					sex:0,
+					type:0,
+					sale:-1
 				})
 			})
+			return res;
 			}catch(e){
-				logFile.warn('uniqlo page has changed,some class selector failed');
+				logFile.warn('veromoda page has changed,some class selector failed '+e.toString());
 					warningCount++;
 					if(warningCount>=warningLimit){
 						logFile.error('veromoda page must be re-anlaysis');
@@ -68,7 +73,6 @@ module.exports = {
 					}
 				return -1;
 			}
-			console.log(res);
 		}
 	},
 	concurrency:20

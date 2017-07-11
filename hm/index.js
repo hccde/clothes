@@ -40,7 +40,6 @@ module.exports = {
 			}else{
 				let str = iconv.decode(body,'utf-8');
 				let goodsData = config.handler(str,this.type);
-				console.log(goodsData)
 				//raw data
 				if(goodsData == -1){
 					requestFlag = false;
@@ -64,7 +63,15 @@ module.exports = {
 		return options;
 	},
 	type:0,
-	completeData(){
-
+	completeData(goodsData){
+		goodsData.forEach((e)=>{
+			e.sex = e.type;
+			e.desc = e.name;
+			e.time = 0;
+			let temp = e.href.split('.');
+			temp.pop();
+			e.id = Number(temp.pop());
+			utils.storage(e,'hm');
+		})
 	}
 }

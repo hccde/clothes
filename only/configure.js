@@ -60,7 +60,7 @@ module.exports = {
 				})
 			})
 			}catch(e){
-				logFile.warn('uniqlo page has changed,some class selector failed');
+				logFile.warn('only page has changed,some class selector failed');
 					warningCount++;
 					if(warningCount>=warningLimit){
 						logFile.error('only page must be re-anlaysis');

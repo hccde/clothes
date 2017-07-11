@@ -78,6 +78,7 @@ module.exports = {
 			let img = $(el).find('img').attr('src');
 			let href = $(el).find('a').attr('href');
 			let name = $(el).find('.product-info .name').text();
+			let id = $(el).data('productid');
 			let price = $(el).find('.product-info .product-info-item-price .price').html();
 			//debug?
 			if(price){
@@ -86,14 +87,15 @@ module.exports = {
 					img:img,
 					href:href,
 					name:name,
-					desc:'',
+					desc:name,
 					type:type,
-					price:price
+					price:Number(price),
+					sale:-1,
+					id:id
 				})
 			}else{
 				// ignore it
 			}
-			// console.log(img,href,name,price);
 			warningCount = 0;
 		})
 		}catch(e){
