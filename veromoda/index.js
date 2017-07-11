@@ -55,7 +55,6 @@ module.exports = {
 	completeData(goodsData){
 		goodsData.forEach((e)=>{
 			e.time = 0;
-			e.id = e.href.split('/').pop().split('.').shift().trim();
 			utils.storage(e,'vero');
 		})
 		return goodsData;

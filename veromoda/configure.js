@@ -4,11 +4,13 @@ let request = require('../lib/request');
 let globalConfig = require('../configure');
 
 let logFile = globalConfig.logFile;
-let warningLimit = 20,warningCount=0,currentPage=-40;
+let warningLimit = 20,warningCount=0,_currentPage=-40,_totalPage = 200;
 module.exports = {
 	all:{
-		url:'http://www.veromoda.com.cn/cn/vmstore/sysp.html',
-		totalPage:100,
+		url:'http://www.veromoda.com.cn/webapp/wcs/stores/servlet/CategoryNavigationResultsView',
+		get totalPage(){
+			return _totalPage;
+		},
 		params:{
 			manufacturer:'',
 			searchType:'',
@@ -36,22 +38,26 @@ module.exports = {
 			orderBy:5,
 			categoryId:'',
 			get beginIndex(){
-				currentPage+=40;
-				return currentPage;
+				_currentPage+=40;
+				return _currentPage;
 			}
 		},
-		currentPage:currentPage,
+		get currentPage(){
+			return _currentPage;
+		},
 		handler(str){
 			let $ = cheerio.load(str);
 			let res = [];
 			try{
 			$('.pageContainerList .HfloorTwoList >li').each((index,el)=>{
-				totalPage = parseInt($('.pageNumbers .fl').text().trim());
+				_totalPage = parseInt($('.pageNumbers .fl').text().trim());
 				let div = $(el).find('.HfloorTwoListTitle').find('a');
 				let title = div.text().trim();
 				let href = div.attr('href');
 				let img = $(el).find('.HfloorTwoListImg').find('img').data('original');
 				let price = $(el).find('p').text().trim().split('¥').pop().trim();
+				// let extra = img.split('/').pop().split('.').shift();
+				let id = $(el).find('.quickLook a hidden').attr('value');
 				res.push({
 					name:title,
 					href:href,
@@ -60,7 +66,8 @@ module.exports = {
 					price:Number(price),
 					sex:0,
 					type:0,
-					sale:-1
+					sale:-1,
+					id:id
 				})
 			})
 			return res;

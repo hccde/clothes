@@ -53,7 +53,10 @@ module.exports = {
 		return options;
 	},
 	completeData(goodsData){
-		//todo
+		goodsData.forEach((e)=>{
+			e.time = 0;
+			utils.storage(e,'only');
+		})
 		return goodsData;
 	}
 }
