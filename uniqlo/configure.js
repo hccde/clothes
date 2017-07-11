@@ -34,15 +34,14 @@ module.exports = {
 						let saleAmount = $(el).find('.sales-amount em');
 						let data = {
 							href: $(aele).attr('href'),
-							img: $(aele).find('img').attr('src'),
+							img: $(aele).find('img').data('ks-lazyload') || $(aele).find('img').attr('src'),
 							desc: $(desc).text().trim(),
-							price: $(price).text(),
-							sale: $(saleAmount).text()
+							price: Number($(price).text()),
+							sale: Number($(saleAmount).text())
 						}
 						goodsData.push(data);
 						return data;
 					})
-					console.log(goodsData)
 					//clear counter
 					warningCount = 0;
 				}catch(e){

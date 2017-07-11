@@ -12,15 +12,14 @@ let iconv = require('iconv-lite');
 let startime = new Date();
 module.exports = {
 	run(){
-		// request
-		this.req();
 		Event.addEventListener('uniqloReq',()=>{
 			while(config.all.currentPage<config.all.totalPage && requestFlag && 
 				request.website['uniqlo'].length<config.concurrency){
 				this.req();
 				config.all.currentPage++;
 			}
-		})
+		});
+		this.req();
 	},
 	req(){
 		let options = this.getOptions();
@@ -36,10 +35,9 @@ module.exports = {
 				}else{
 					this.completeData(goodsData);
 				}
-				console.log(new Date()-startime)
 			}
 			request.remove(req);
-			Event.trigger('uniqloReq');
+			return Event.trigger('uniqloReq');
 		})
 	},
 	getOptions(){
@@ -54,7 +52,18 @@ module.exports = {
 		return options;
 	},
 	completeData(goodsData){
-		//todo
-		return goodsData;
+		goodsData.forEach((e)=>{
+			try{
+			let obj = {}
+			let desc = e.desc;
+			obj.name = desc;
+			obj.sex = desc.indexOf('女')>=0?0:1;
+			e.desc = e.desc;
+			obj.id = e.href.split('?').pop().split('&').shift().split('=').pop();
+			utils.storage(_.merge(obj,e),'uniqlo');
+			}catch(e){
+				logFile.warn('data error , insert into database crash '+e.toString());
+			}
+		})
 	}
 }

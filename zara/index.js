@@ -43,7 +43,6 @@ module.exports = {
 			}else{
 				let str = iconv.decode(body,'utf-8');
 				let goodsData = config.handler(str,this.type);
-				console.log(goodsData)
 				//raw data
 				if(goodsData == -1){
 					requestFlag = false;
@@ -73,7 +72,7 @@ module.exports = {
 		1:'man',
 		2:'kid'
 	},
-	completeData(){
-		
+	completeData(goodsData){
+			
 	}
 }
