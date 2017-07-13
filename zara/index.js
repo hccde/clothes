@@ -18,19 +18,19 @@ module.exports = {
 			}else{
 				let str = iconv.decode(body,'utf-8');
 				config.all.handler(str);
-				urlCol = config.all.urlCol[this.hash[this.type]];
 				Event.trigger('zara')
 			}
 		})
 		Event.addEventListener('zara',()=>{
-			while(config.concurrenency>request.website['hm'].length &&
+			urlCol = config.all.urlCol[this.hash[this.type]];
+			while(this.type<=2&&config.concurrenency>request.website['zara'].length &&
 				requestFlag && count<urlCol.length){
 				this.url = urlCol[count];
-				this.req();
 				count+=1;
+				this.req();
 			}
-			if(count>=urlCol.length-1){
-				this.type =+ 1;
+			if(this.type<=2&&count>=urlCol.length){
+				this.type = this.type+1;
 				count = 0;
 			}
 		})
@@ -56,7 +56,7 @@ module.exports = {
 	},
 	getOptions(){
 		let options = {
-			_name:'hm',
+			_name:'zara',
 			method:'GET',
 			uri:this.url,
 			qs:config.all.params,

@@ -54,7 +54,7 @@ module.exports = {
 				let title = div.text().trim();
 				let href = div.attr('href');
 				let img = $(el).find('.HfloorTwoListImg').find('img').data('original');
-				let price = $(el).find('p').text().trim().split('¥').pop().trim();
+				let price = parseFloat($(el).find('p').text().trim().split('¥').pop().trim());
 				let id = $(el).find('.quickLook a hidden').attr('value');
 				res.push({
 					name:title,
