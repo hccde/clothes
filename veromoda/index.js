@@ -10,6 +10,7 @@ let request = require('../lib/request');
 let Event = require('../lib/event');
 let iconv = require('iconv-lite');
 let startime = new Date();
+let semaphore = utils.semaphore('vero');
 
 module.exports = {
 	run(){
@@ -18,6 +19,9 @@ module.exports = {
 			while(config.all.currentPage<config.all.totalPage && requestFlag && 
 				request.website['vero'].length<config.concurrency){
 				this.req();
+			}
+			if(config.all.currentPage>=config.all.totalPage){
+				semaphore();
 			}
 		})
 	},

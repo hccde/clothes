@@ -8,6 +8,7 @@ let Event = require('../lib/event');
 
 let requestFlag = true;
 let logFile = globalConfig.logFile;
+let semaphore = utils.semaphore('hm');
 
 module.exports = {
 	run(){
@@ -20,12 +21,13 @@ module.exports = {
 			}
 			if(config.all.currentOffset>=config.all.total){
 				if(this.type<length-1){
-					console.log(config.types[this.type]+' over');
 					//reset
 					config.reset();
 					this.type+=1;
 					config.all.params['product-type'] = config.types[this.type];
 					this.req();
+				}else{
+					semaphore();
 				}
 			}
 		});

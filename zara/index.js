@@ -7,6 +7,8 @@ let _ = require('lodash');
 let iconv = require('iconv-lite');
 let Event = require('../lib/Event');
 let requestFlag = true;
+let semaphore = utils.semaphore('zara');
+
 module.exports = {
 	run(){
 		let options = this.getOptions();
@@ -18,7 +20,7 @@ module.exports = {
 			}else{
 				let str = iconv.decode(body,'utf-8');
 				config.all.handler(str);
-				Event.trigger('zara')
+				Event.trigger('zara');
 			}
 		})
 		Event.addEventListener('zara',()=>{
@@ -32,6 +34,9 @@ module.exports = {
 			if(this.type<=2&&count>=urlCol.length){
 				this.type = this.type+1;
 				count = 0;
+			}
+			if(this.type>2){
+				semaphore();
 			}
 		})
 	},
