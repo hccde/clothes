@@ -34,7 +34,8 @@ module.exports = {
 			let href = host + $(el).find('a').attr('href');
 			let name = $(el).find('a').attr('title');
 			let img = 'http:'+ $(el).find('img').attr('src');
-			let price = Number($(el).find('.price').text().trim().replace(',','').replace('¥','').trim());
+			// console.log($(el).find('.price').eq(0).text().trim().replace(',','').replace('¥',''));
+			let price = Number($(el).find('.price').eq(0).text().trim().replace(',','').replace('¥','').trim());
 			res.push({
 				href:href,
 				name:name,

@@ -11,7 +11,7 @@ let utils = require('./lib/utils');
 // uniqlo.run()
 
 // setTimeout(()=>{vero.run()},0);
-// setTimeout(()=>{hm.run()},0);
+setTimeout(()=>{hm.run()},0);
 // setTimeout(()=>{zara.run()},0);
 // setTimeout(()=>{only.run()},0);
 // setTimeout(()=>{uniqlo.run()},0);
