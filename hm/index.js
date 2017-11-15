@@ -8,8 +8,6 @@ let Event = require('../lib/event');
 
 let requestFlag = true;
 let logFile = globalConfig.logFile;
-let semaphore = utils.semaphore('hm');
-
 module.exports = {
 	run(){
 		let length = config.types.length;

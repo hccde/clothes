@@ -9,7 +9,6 @@ let requestFlag = true
 let request = require('../lib/request');
 let Event = require('../lib/event');
 let iconv = require('iconv-lite');
-let semaphore = utils.semaphore('only');
 
 module.exports = {
 	run(){
