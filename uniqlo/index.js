@@ -98,7 +98,7 @@ class Uniqlo {
 					}
 				}
 				if (created) {
-					console.log('created ' + e.name);
+					console.log('created uniqlo ' + e.name);
 				}
 			}).catch((err) => {
 				logFile.warn('warn: one insertion failed' + err.toString() + JSON.stringify(e));
