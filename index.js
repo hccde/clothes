@@ -44,6 +44,8 @@ let Consumer  = require('./lib/pattern/index');
 
 let hm = require('./hm/index.js');
 let only = require('./only/index.js');
-let uniqlo = require('./uniqlo/index')
-let o = new uniqlo();
+let uniqlo = require('./uniqlo/index');
+let veromoda = require('./veromoda/_index');
+
+let o = new veromoda();
 o.run();

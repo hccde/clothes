@@ -126,7 +126,7 @@ class Uniqlo {
 					price: Number($(price).text()),
 					sale: Number($(saleAmount).text()),
 					desc: $(desc).text().trim(),
-					id: 'hm' + new Buffer($(desc).text().trim(), 'utf-8').toString('hex'),
+					id: 'uniqlo' + new Buffer($(desc).text().trim(), 'utf-8').toString('hex'),
 					history: '',
 					yestdayprice: 0,
 					pricechange: 0,
