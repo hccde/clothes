@@ -43,6 +43,7 @@ let Consumer  = require('./lib/pattern/index');
 // add(0);
 
 let hm = require('./hm/index.js');
-let only = require('./only/_index.js')
-let o = new only();
+let only = require('./only/index.js');
+let uniqlo = require('./uniqlo/index')
+let o = new uniqlo();
 o.run();
