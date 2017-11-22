@@ -10,7 +10,7 @@ const RETRY = 3;
 let iconv = require('iconv-lite');
 let cheerio = require('cheerio');
 
-const type_all = ['衣','鞋','帽','镜','恤','衫','棉','裤','袜','靴','套','包','格','纹'];
+const type_all = ['衣','鞋','帽','镜','恤','衫','棉','裤','袜','靴','套','包','格','纹','裙'];
 
 let option = new Option({
 	method:'GET',
