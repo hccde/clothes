@@ -44,4 +44,5 @@ let Consumer  = require('./lib/pattern/index');
 
 let hm = require('./hm/index.js');
 
-new hm().run();
+let h = new hm()
+h.run();

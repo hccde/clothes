@@ -2,8 +2,7 @@ let Option = require('../lib/interface/option');
 let request = require('request');
 let Consumer = require('../lib/pattern/consumer');
 const Databse = require('../lib/tools/database');
-const crypto = require('crypto');
-const _SECRET = 'Glory to Caesar';
+const logFile = require('../lib/tools/log');
 
 let _ = require('lodash');
 const RETRY = 3;
@@ -11,6 +10,19 @@ const RETRY = 3;
 let iconv = require('iconv-lite');
 let cheerio = require('cheerio');
 
+const type_all = [{
+	type:'ladies_all',
+	uri:'http://www2.hm.com/zh_cn/ladies/shop-by-product/view-all.html'
+},{
+	type:'men_all',
+	uri:'http://www2.hm.com/zh_cn/men/shop-by-product/view-all.html'
+},{
+	type:'kids_all',
+	uri:'http://www2.hm.com/zh_cn/kids/shop-by-product/view-all.html'
+},{
+	type:'home_all',
+	uri:'http://www2.hm.com/zh_cn/home/shop-by-product/view-all.html'
+}]
 //man child todo
 let option = new Option({
 	method:'GET',
@@ -24,6 +36,7 @@ let option = new Option({
 	total:Number.MAX_VALUE,
 	host:'http://www2.hm.com/',
 	_retry:0,
+	_type:0,
 	timeout:12000, //timeout
  });
 let time = new Date();
@@ -43,33 +56,21 @@ class HM {
 			return new Promise((resolve,reject)=>{
 				let req = request(opt,function(err,res){	
 					if(err){
-						//net failed,retry 3 times
+						//failed,retry 3 times
 						reject(err);
-						if(opt._retry < RETRY){
-							opt._retry+=1;
-							sigleton.run(opt);
-						}else{
-							//todo
-							//drop req,and log
-						}
+						sigleton.isRetry(opt,err);
 					}else{
 						req = null;
 						let r = sigleton.handler( iconv.decode(res.body,'utf-8') );
 						r.forEach((e)=>{
-							Databse.Main.findOrCreate({where:{id:e.id},defaults:e})
-								.spread(()=>{
-									console.log('insert '+e.name+ ' ' + option.qs.offset+' total '+ option.total)
-								}).catch((e)=>{
-									//database insert error
-									console.log(e)
-								})
+							sigleton.saveData(e);
 						})
 						resolve(true);
 					}
 				})
 			}).catch((e)=>{
 				//request error for example: timeout
-				console.log(e);
+				sigleton.isRetry(opt,e);
 			})
 		});
 		option.qs['offset'] += option.qs['page-size'];
@@ -77,9 +78,61 @@ class HM {
 			//call itself,avoid callmaxium
 			setTimeout(sigleton.run,0);
 		}else{
-			//run `man child ` todo 
+			if(option._type >= 3){
+				sigleton.resetOption(option);
+				console.log(option)
+			}else{
+				sigleton.resetOption(option);
+				console.log(type_all[option._type]);
+				setTimeout(sigleton.run,0);
+			}
 		}
 	};
+
+	isRetry(opt,e){
+		if(opt._retry < RETRY){
+			opt._retry+=1;
+			sigleton.run(opt);
+		}else{
+			logFile.warn('warn: one request failed' + e.toString() + JSON.stringify(opt));
+			console.log(e);
+		}
+	}
+
+	resetOption(opt){
+		opt._type = opt._type >= type_all.length-1?0:opt._type+1 //index == 3 reset _type
+		opt.total = Number.MAX_VALUE;
+		opt.uri = type_all[opt._type].uri;
+		opt.qs['product-type'] = type_all[opt._type].type;
+		opt.qs.offset = 0;
+	}
+
+	saveData(e){
+	    Databse.Main.findOrCreate({ where: { id: e.id }, defaults: e })
+	        .spread((u, created) => {
+	            if (u) {//exist
+	                let record = u.get({
+	                    plain: true
+	                });
+	                if (e.updateAt - record.updateAt >= 24 * 3600 * 1000) {
+	                    console.log('update ' + e.name)
+	                    e.yestdayprice = record.price;
+	                    e.history = record.price.toString() + '|' + record.history
+	                    e.pricechange = e.price - record.price;
+	                    Databse.Main.upsert(e).catch((err) => {
+	                        logFile.warn('warn: one update failed' + err.toString() + JSON.stringify(e));
+	                        console.log(err);
+	                    });
+	                }
+	            }
+	            if (created) {
+	                // console.log('created '+e.name);
+	            }
+	        }).catch((err) => {
+	            logFile.warn('warn: one insertion failed' + err.toString() + JSON.stringify(e));
+	            console.log(err);
+	        });
+	}
 
 	handler(str){
 		let $ = cheerio.load(str);
@@ -91,25 +144,24 @@ class HM {
 				let href = host + $(el).find('a').attr('href');
 				let name = $(el).find('a').attr('title');
 				let img = 'http:'+ $(el).find('img').attr('src');
-				// console.log($(el).find('.price').eq(0).text().trim().replace(',','').replace('¥',''));
 				let price = Number($(el).find('.price').eq(0).text().trim().replace(',','').replace('¥','').trim());
 				res.push({
 					href:href,
 					name:name,
 					img:img,
 					price:price,
-					sale:0,
+					sale:-1,
 					desc:'',
-					id:'hm'+ crypto.createHmac('sha256', _SECRET)
-                   		.update(name)
-                   		.digest('hex'),
-					newestprice:price,
-					updatedAt:new Date()
+					id:'hm'+ new Buffer(name, 'utf-8').toString('hex'),
+					history:'',
+					yestdayprice:0, 
+					pricechange:0,
+					updateAt:new Date().getTime()
 				});
 			});
 		}catch(e){
-			console.log(e)
-			// logFile.error('fatal:page changed,selectors have failed: '+e.toString());
+			console.log(e);
+			logFile.error('fatal:page changed,selectors have failed: '+e.toString());
 		}
 		return res;
 	};
