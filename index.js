@@ -43,6 +43,6 @@ let Consumer  = require('./lib/pattern/index');
 // add(0);
 
 let hm = require('./hm/index.js');
-
-let h = new hm()
-h.run();
+let only = require('./only/_index.js')
+let o = new only();
+o.run();

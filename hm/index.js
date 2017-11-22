@@ -159,6 +159,9 @@ class HM {
 					updateAt:new Date().getTime()
 				});
 			});
+			if(res.length === 0){
+				throw('page changed');
+			}
 		}catch(e){
 			console.log(e);
 			logFile.error('fatal:page changed,selectors have failed: '+e.toString());
