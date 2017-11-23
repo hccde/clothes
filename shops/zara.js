@@ -51,7 +51,7 @@ class Zara extends Shop {
 	};
 
 	async run(opt = _.cloneDeep(option)){
-		await new Consumer(3).push(()=>{
+		await new Consumer().push(()=>{
 			return new Promise((resolve,reject)=>{
 				let req = request(opt,function(err,res){	
 					if(err){
@@ -59,7 +59,7 @@ class Zara extends Shop {
 						reject(err);
 						sigleton.isRetry(opt,err);
 					}else{
-                        req = null;
+						req = null;
 						let r = sigleton.handler( iconv.decode(res.body,'utf-8') );
 						r.forEach((e)=>{
 							sigleton.saveData(e);
@@ -72,7 +72,10 @@ class Zara extends Shop {
 				sigleton.isRetry(opt,e);
 			})
 		});
-		option.qs['start'] += option.qs['rows'];
+		if(opt._retry > 0){ 
+			return true;
+		}
+		option.qs['start'] += option.qs['rows'];// request ok 
 		if(option.qs['start'] <= option.total){
 			//call itself,avoid callmaxium
 			setTimeout(sigleton.run,0);
@@ -92,6 +95,7 @@ class Zara extends Shop {
 			opt._retry+=1;
 			sigleton.run(opt);
 		}else{
+			option.qs['start'] += option.qs['rows']; //jump
 			logFile.warn('warn: one request failed' + e.toString() + JSON.stringify(opt));
 			console.log(e);
 		}
@@ -104,32 +108,6 @@ class Zara extends Shop {
 		opt.qs.start = 0;
 	}
 
-	saveData(e){
-	    Databse.Main.findOrCreate({ where: { id: e.id }, defaults: e })
-	        .spread((u, created) => {
-	            if (u) {//exist
-	                let record = u.get({
-	                    plain: true
-	                });
-	                if (e.updateAt - record.updateAt >= 24 * 3600 * 1000) {
-	                    console.log('update ' + e.name)
-	                    e.yestdayprice = record.price;
-	                    e.history = record.price.toString() + '|' + record.history
-	                    e.pricechange = e.price - record.price;
-	                    Databse.Main.upsert(e).catch((err) => {
-	                        logFile.warn('warn: one update failed' + err.toString() + JSON.stringify(e));
-	                        console.log(err);
-	                    });
-	                }
-	            }
-	            if (created) {
-	                console.log('created  zara '+e.name);
-	            }
-	        }).catch((err) => {
-	            logFile.warn('warn: one insertion failed' + err.toString() + JSON.stringify(e));
-	            console.log(err);
-	        });
-    }
 	handler(str){
         let data = JSON.parse(str);
         option.total = data.numFound;
@@ -150,8 +128,9 @@ class Zara extends Shop {
                     yestdayprice: 0,
                     pricechange: 0,
                     updateAt: new Date().getTime()
-                });
-            })
+				});
+				// console.log(good.detail.name)
+			})
 		}catch(e){
 			console.log(e);
 			logFile.error('fatal:page changed,selectors have failed: '+e.toString());

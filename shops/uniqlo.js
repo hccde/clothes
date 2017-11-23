@@ -28,7 +28,6 @@ let time = new Date();
 let sigleton = null;
 
 class Uniqlo extends Shop {
-	super();
 	constructor() {
 		super();
 		if (!sigleton) {
@@ -39,7 +38,7 @@ class Uniqlo extends Shop {
 	};
 
 	async run(opt = _.cloneDeep(option)) {
-		await new Consumer(3).push(() => {
+		await new Consumer().push(() => {
 			return new Promise((resolve, reject) => {
 				let req = request(opt, function (err, res) {
 					if (err) {
@@ -60,6 +59,9 @@ class Uniqlo extends Shop {
 				sigleton.isRetry(opt, e);
 			})
 		});
+		if(opt._retry > 0){ 
+			return true;
+		}
 		option.qs['pageNum'] += 1;
 		if (option.qs['pageNum'] <= option.total) {
 			//call itself,avoid callmaxium
@@ -80,34 +82,6 @@ class Uniqlo extends Shop {
 	resetOption(opt) {
 		opt.total = Number.MAX_VALUE;
 		opt.qs.pageNum = 0;
-	}
-
-	saveData(e) {
-		Databse.Main.findOrCreate({ where: { id: e.id }, defaults: e })
-			.spread((u, created) => {
-				if (u) {//exist
-					let record = u.get({
-						plain: true
-					});
-					if (e.updateAt - record.updateAt >= 24 * 3600 * 1000) {
-						console.log('update ' + e.name)
-						e.yestdayprice = record.price;
-						e.history = record.price.toString() + '|' + record.history
-						e.pricechange = e.price - record.price;
-						Databse.Main.upsert(e).catch((err) => {
-							logFile.warn('warn: one update failed' + err.toString() + JSON.stringify(e));
-							//try to update again
-							Databse.Main.upsert(e);
-						});
-					}
-				}
-				if (created) {
-					console.log('created uniqlo ' + e.name);
-				}
-			}).catch((err) => {
-				logFile.warn('warn: one insertion failed' + err.toString() + JSON.stringify(e));
-				console.log(err);
-			});
 	}
 
 	handler(str) {

@@ -45,6 +45,7 @@ let sigleton = null;
 
 class HM extends Shop {
 	constructor(){
+		super();
 		if(!sigleton){
 			sigleton = this;
 		}else{
@@ -53,7 +54,7 @@ class HM extends Shop {
 	};
 
 	async run(opt = _.cloneDeep(option)){
-		await new Consumer(3).push(()=>{
+		await new Consumer().push(()=>{
 			return new Promise((resolve,reject)=>{
 				let req = request(opt,function(err,res){	
 					if(err){
@@ -74,6 +75,9 @@ class HM extends Shop {
 				sigleton.isRetry(opt,e);
 			})
 		});
+		if(opt._retry > 0){ 
+			return true;
+		}
 		option.qs['offset'] += option.qs['page-size'];
 		if(option.qs['offset'] <= option.total){
 			//call itself,avoid callmaxium
@@ -106,33 +110,6 @@ class HM extends Shop {
 		opt.uri = type_all[opt._type].uri;
 		opt.qs['product-type'] = type_all[opt._type].type;
 		opt.qs.offset = 0;
-	}
-
-	saveData(e){
-	    Databse.Main.findOrCreate({ where: { id: e.id }, defaults: e })
-	        .spread((u, created) => {
-	            if (u) {//exist
-	                let record = u.get({
-	                    plain: true
-	                });
-	                if (e.updateAt - record.updateAt >= 24 * 3600 * 1000) {
-	                    console.log('update ' + e.name)
-	                    e.yestdayprice = record.price;
-	                    e.history = record.price.toString() + '|' + record.history
-	                    e.pricechange = e.price - record.price;
-	                    Databse.Main.upsert(e).catch((err) => {
-	                        logFile.warn('warn: one update failed' + err.toString() + JSON.stringify(e));
-	                        console.log(err);
-	                    });
-	                }
-	            }
-	            if (created) {
-	                console.log('created hm'+e.name);
-	            }
-	        }).catch((err) => {
-	            logFile.warn('warn: one insertion failed' + err.toString() + JSON.stringify(e));
-	            console.log(err);
-	        });
 	}
 
 	handler(str){
