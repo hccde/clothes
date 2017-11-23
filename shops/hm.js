@@ -85,7 +85,7 @@ class HM extends Shop {
 		}else{
 			if(option._type >= 3){
 				sigleton.resetOption(option);
-				console.log(option)
+				sigleton.finish();
 			}else{
 				sigleton.resetOption(option);
 				console.log(type_all[option._type]);

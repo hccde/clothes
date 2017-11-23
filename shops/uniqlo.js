@@ -66,6 +66,8 @@ class Uniqlo extends Shop {
 		if (option.qs['pageNum'] <= option.total) {
 			//call itself,avoid callmaxium
 			setTimeout(sigleton.run, 0);
+		}else{
+			sigleton.finish();
 		}
 	};
 
@@ -88,8 +90,8 @@ class Uniqlo extends Shop {
 		let $ = cheerio.load(str);
 		let pageInfo = $('.page-info').text().split('/');
 		let res = [];
-		option.total = Number(pageInfo[1]);
 		let goods = [];
+		option.total = Number(pageInfo[1]);
 		try {
 			goods = $('.shop-list').find('li');
 			goods.map((index, el) => {

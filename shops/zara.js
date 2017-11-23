@@ -82,6 +82,7 @@ class Zara extends Shop {
 		}else{
 			if(option._type >= type_all.length-1){
 				sigleton.resetOption(option);
+				sigleton.finish();
 			}else{
 				sigleton.resetOption(option);
 				console.log(type_all[option._type]);
