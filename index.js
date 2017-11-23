@@ -1,8 +1,8 @@
-let Hm = require('./hm/index.js');
-let Only = require('./only/index.js');
-let Uniqlo = require('./uniqlo/index');
-let Veromoda = require('./veromoda/index');
-let Zara = require('./zara/index');
+let Hm = require('./shops/hm.js');
+let Only = require('./shops/only.js');
+let Uniqlo = require('./shops/uniqlo.js');
+let Veromoda = require('./shops/veromoda.js');
+let Zara = require('./shops/zara.js');
 
 // setTimeout(()=>{
 //     new Hm().run();
