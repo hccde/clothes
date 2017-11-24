@@ -1,23 +1,37 @@
 {
-  "name": "cloth",
+  "name": "clothes",
   "version": "1.0.0",
-  "description": "",
+  "description": "''",
   "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "none",
+    "server":"node server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hccde/clothes.git"
   },
   "author": "admos",
-  "license": "ISC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hccde/clothes/issues"
+  },
+  "homepage": "https://github.com/hccde/clothes#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
     "iconv": "^2.3.0",
     "iconv-lite": "^0.4.18",
     "lodash": "^4.17.4",
     "log4js": "^1.1.1",
     "mysql2": "^1.5.1",
+    "nodemailer": "4.4.0",
     "react": "^15.6.1",
     "request": "^2.81.0",
-    "sequelize": "^4.22.7",
-    "nodemailer":"4.4.0"
+    "sequelize": "^4.22.7"
   }
 }
