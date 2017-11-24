@@ -17,6 +17,7 @@
     "mysql2": "^1.5.1",
     "react": "^15.6.1",
     "request": "^2.81.0",
-    "sequelize": "^4.22.7"
+    "sequelize": "^4.22.7",
+    "nodemailer":"4.4.0"
   }
 }
