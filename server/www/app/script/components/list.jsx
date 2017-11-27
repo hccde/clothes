@@ -36,7 +36,7 @@ class List extends React.Component {
                     {this.props.listData.map(el => (
                         <div key={el.id} style={{width: '100%' }}
                             className="list-item">
-                            <img onClick={goTo(el)} src={
+                            <img onClick={this.goTo(el)} src={
                                 el.img.indexOf('http://') === -1?'http://'+el.img:el.img
                             }/>
                             <span>{el.name}</span>
