@@ -6,14 +6,28 @@
   "directories": {
     "lib": "lib"
   },
- "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+  "dependencies": {
+    "antd-mobile": "^2.0.3",
+    "axios": "^0.17.1",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.2",
+    "iconv": "^2.3.0",
+    "iconv-lite": "^0.4.18",
+    "lodash": "^4.17.4",
+    "log4js": "^1.1.1",
+    "mysql2": "^1.5.1",
+    "nodemailer": "4.4.0",
+    "react": "^15.6.1",
+    "request": "^2.81.0",
+    "sequelize": "^4.22.7"
   },
   "scripts": {
     "test": "none",
-    "server":"node server/app.js"
+    "server": "node server/app.js"
   },
   "repository": {
     "type": "git",
@@ -25,21 +39,7 @@
     "url": "https://github.com/hccde/clothes/issues"
   },
   "homepage": "https://github.com/hccde/clothes#readme",
-  "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.2",
-    "iconv": "^2.3.0",
-    "iconv-lite": "^0.4.18",
-    "lodash": "^4.17.4",
-    "log4js": "^1.1.1",
-    "mysql2": "^1.5.1",
-    "nodemailer": "4.4.0",
-    "react": "^15.6.1",
-    "request": "^2.81.0",
-    "sequelize": "^4.22.7",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-react-jsx": "^6.24.1",
-    "babel-preset-env": "^1.6.1"
+  "devDependencies": {
+    "sass-loader": "^6.0.6"
   }
 }

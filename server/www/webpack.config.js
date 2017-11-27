@@ -2,10 +2,12 @@ let path = require('path');
 require("babel-polyfill");
 
 module.exports = {
-	entry:['babel-polyfill','./app/index.jsx'],
+	entry:{
+		index:['babel-polyfill','./app/index.jsx'],
+	},
 	output:{
 		path:path.resolve(__dirname,'dist'),
-		filename:'index.js'
+		filename:'[name].js'
 	},
 	module:{
 		rules:[
@@ -19,6 +21,17 @@ module.exports = {
 						plugins: [require("babel-plugin-transform-react-jsx")]						
 					}
 				}
+			},
+			{
+				test:/\.(scss|css)$/,
+				use:[
+					{
+						loader: "style-loader"  
+					}, {
+						loader: "css-loader" 
+					}, {
+						loader: "sass-loader"
+					}]
 			}
 		]
 	}
