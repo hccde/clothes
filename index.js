@@ -3,7 +3,7 @@ let Only = require('./shops/only.js');
 let Uniqlo = require('./shops/uniqlo.js');
 let Veromoda = require('./shops/veromoda.js');
 let Zara = require('./shops/zara.js');
-const time = 0;
+const time = 12*3600*1000;
 
 setInterval(()=>{
     new Hm().run();
