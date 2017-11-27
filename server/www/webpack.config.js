@@ -1,4 +1,5 @@
 let path = require('path');
+let webpack = require('webpack');
 require("babel-polyfill");
 
 module.exports = {
