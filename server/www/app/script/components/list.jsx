@@ -32,6 +32,7 @@ class List extends React.Component {
                         });
                     }}
                 >
+                <div>
                     {this.props.listData.map(el => (
                         <div key={el.id} style={{width: '100%' }}
                             className="list-item">
@@ -48,6 +49,7 @@ class List extends React.Component {
                             </span>)}
                         </div>
                     ))}
+                </div>
                 </PullToRefresh>
             </div>
         )
