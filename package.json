@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "antd-mobile": "^2.0.3",
+    "axios": "^0.17.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
