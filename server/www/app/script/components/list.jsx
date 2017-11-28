@@ -36,10 +36,10 @@ class List extends React.Component {
                     {this.props.listData.map(el => (
                         <div key={el.id} style={{width: '100%' }}
                             className="list-item">
-                            <img onClick={()=>{this.goTo(el)}} src={
-                                el.img.indexOf('http://') === -1?'http://'+el.img:el.img
+                            <img src={
+                                el.img.indexOf('http') === -1?'http://'+el.img:el.img
                             }/>
-                            <span>{el.name}</span>
+                            <a href={el.href}><span>{el.name}</span></a>
                             <span>{el.price}¥</span>
                             {el.pricechange===0?'':(<span>价格
                             {el.pricechange>0?'增加':'减少'}
@@ -59,9 +59,6 @@ class List extends React.Component {
         setTimeout(() => this.setState({
             height: hei
         }), 0);
-    }
-    goTo(el){
-        window.location.href = el.href;
     }
 }
 export default List;

@@ -1,7 +1,9 @@
 let express = require('express');
 let bootstrap = require('./controller/index');
-let app = express();
+let compress = require('compression');
 
+let app = express();
+app.use(compress());
 let server = app.listen(80,'127.0.0.1', function () {
   let host = server.address().address;
   let port = server.address().port;

@@ -10,6 +10,9 @@ module.exports = {
 		path:path.resolve(__dirname,'dist'),
 		filename:'[name].js'
 	},
+	externals: {
+		'react': 'React'
+	},
 	module:{
 		rules:[
 			{
@@ -41,6 +44,7 @@ module.exports = {
 		  compress: {
 			warnings: false
 		  }
-		})
+		}),
+		new webpack.optimize.AggressiveMergingPlugin()
 	  ]
 }
