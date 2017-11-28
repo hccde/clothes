@@ -4,11 +4,13 @@ let compress = require('compression');
 
 let app = express();
 app.use(compress());
-let server = app.listen(80,'127.0.0.1', function () {
+let server = app.listen(3000,'127.0.0.1', function () {
   let host = server.address().address;
   let port = server.address().port;
 });
 
-app.use(express.static(__dirname+'/www'));
+app.use(express.static(__dirname+'/www',{
+  maxAge:60*3600*1000
+}));
 
 bootstrap(app);
