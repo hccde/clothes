@@ -5,13 +5,12 @@ require("babel-polyfill");
 module.exports = {
 	entry:{
 		index:['babel-polyfill','./app/index.jsx'],
+		vendor: ['react', 'react-dom']
 	},
 	output:{
 		path:path.resolve(__dirname,'dist'),
-		filename:'[name].js'
-	},
-	externals: {
-		'react': 'React'
+		filename:'[name].js',
+		chunkFilename: "[name].js",
 	},
 	module:{
 		rules:[
@@ -44,6 +43,10 @@ module.exports = {
 		  compress: {
 			warnings: false
 		  }
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			names: ['vendor'],
+			minChunks: Infinity
 		}),
 		new webpack.optimize.AggressiveMergingPlugin()
 	  ]
