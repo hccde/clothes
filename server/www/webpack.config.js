@@ -1,7 +1,7 @@
 let path = require('path');
 let webpack = require('webpack');
 require("babel-polyfill");
-
+//todo file hash
 module.exports = {
 	entry:{
 		index:['babel-polyfill','./app/index.jsx'],
