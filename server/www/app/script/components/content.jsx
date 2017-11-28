@@ -30,12 +30,12 @@ class Content extends React.Component {
                                 this.getRandomData();
                             }
                         }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
                             {this.state.priceList.length > 0 ?
                                 (<List listData={this.state.priceList} getList={this.getMorePriceData.bind(this)}>
                                 </List>) : ''}
                         </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '150px', backgroundColor: '#fff' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
                             {this.state.randomList.length > 0 ?
                                 (<List listData={this.state.randomList} getList={this.getRandomData.bind(this)}>
                                 </List>) : ''}
