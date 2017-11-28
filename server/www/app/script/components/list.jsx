@@ -40,12 +40,12 @@ class List extends React.Component {
                                 el.img.indexOf('http') === -1?'http://'+el.img:el.img
                             }/>
                             <a href={el.href}><span>{el.name}</span></a>
-                            <span>{el.price}¥</span>
+                            <span> ¥{el.price} </span>
                             {el.pricechange===0?'':(<span>价格
                             {el.pricechange>0?'增加':'减少'}
                             <strong style={{
                                 color:el.pricechange>0?'red':'green'
-                            }}> {Math.abs(el.pricechange)}¥ </strong>
+                            }}> ¥{Math.abs(el.pricechange)} </strong>
                             </span>)}
                         </div>
                     ))}
