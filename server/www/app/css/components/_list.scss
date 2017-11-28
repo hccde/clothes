@@ -1,6 +1,7 @@
 .list{
     display: flex;
     margin-bottom: 2.5rem;
+    -webkit-overflow-scrolling: touch;
     .list-item{
         float: left;
         max-width: 50%;
