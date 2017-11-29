@@ -18,6 +18,7 @@ class List extends React.Component {
             <div style={{width:'100%'}} className="list">
                 <PullToRefresh
                     ref={el => this.ptr = el}
+                    distanceToRefresh = {window.devicePixelRatio * 15}
                     style={{
                         height: this.state.height,
                         overflow: 'auto',
@@ -35,10 +36,22 @@ class List extends React.Component {
                 <div>
                     {this.props.listData.map(el => (
                         <div key={el.id} style={{width: '100%' }}
-                            className="list-item">
-                            <img src={
-                                el.img.indexOf('http') === -1?'http://'+el.img:el.img
-                            }/>
+                            className="list-item"> 
+                            <img src="http://s.hancongcong.com/img.jpeg" ref={
+                                (e)=>{
+                                    if(!e){
+                                        return false;
+                                    }
+                                    let img = new Image();
+                                    let src = el.img.indexOf('http') === -1?'http://'+el.img:el.img;
+                                    img.src = src;
+                                    img.onload = ()=>{
+                                        e.src = src;
+                                        e.style.opacity = 1;
+                                        img = null;
+                                    }
+                                }
+                            } style = {{opacity:0.08}} />
                             <a href={el.href}><span>{el.name}</span></a>
                             <span> ¥{el.price} </span>
                             {el.pricechange===0?'':(<span>价格
@@ -56,9 +69,9 @@ class List extends React.Component {
     }
     componentDidMount() {
         const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
-        setTimeout(() => this.setState({
+        this.setState({
             height: hei
-        }), 0);
+        });
     }
 }
 export default List;
