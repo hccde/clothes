@@ -14,8 +14,8 @@ html,body{
 .container{
     padding:1rem 1rem;
     padding-top:0;
+    padding-bottom: 0;
     height: 100%;
-    overflow: hidden;
 }
 
 @import './components/dateboard.scss';

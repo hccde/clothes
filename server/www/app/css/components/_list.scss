@@ -1,6 +1,8 @@
 .list{
     display: flex;
-    margin-bottom: 2.5rem;
+    ::-webkit-scrollbar {
+        display: none;
+    }
     -webkit-overflow-scrolling: touch;
     .list-item{
         float: left;

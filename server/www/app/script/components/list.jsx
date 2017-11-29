@@ -18,7 +18,7 @@ class List extends React.Component {
             <div style={{width:'100%'}} className="list">
                 <PullToRefresh
                     ref={el => this.ptr = el}
-                    distanceToRefresh = {window.devicePixelRatio * 15}
+                    distanceToRefresh = {window.devicePixelRatio * 5}
                     style={{
                         height: this.state.height,
                         overflow: 'auto',
