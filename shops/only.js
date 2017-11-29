@@ -146,7 +146,7 @@ class Only extends Shop {
 			res.push({
 				href:'http://www.only.cn/goodsDetails.html?design='+good.goodsCode,
 				name:good.goodsName,
-				img:option.headers.Host+good.gscMaincolPath,
+				img:'http://'+option.headers.Host+good.gscMaincolPath,
 				price:good.originalPrice,
 				sale:good.sellCount,
 				desc:good.name+' : '+good.goodsInfo,

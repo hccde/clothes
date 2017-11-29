@@ -1,13 +1,16 @@
 let path = require('path');
+let webpack = require('webpack');
 require("babel-polyfill");
-
+//todo file hash
 module.exports = {
 	entry:{
 		index:['babel-polyfill','./app/index.jsx'],
+		vendor: ['react', 'react-dom']
 	},
 	output:{
 		path:path.resolve(__dirname,'dist'),
-		filename:'[name].js'
+		filename:'[name].js',
+		chunkFilename: "[name].js",
 	},
 	module:{
 		rules:[
@@ -34,5 +37,17 @@ module.exports = {
 					}]
 			}
 		]
-	}
+	},
+	plugins: [
+		new webpack.optimize.UglifyJsPlugin({
+		  compress: {
+			warnings: false
+		  }
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			names: ['vendor'],
+			minChunks: Infinity
+		}),
+		new webpack.optimize.AggressiveMergingPlugin()
+	  ]
 }

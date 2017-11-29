@@ -32,22 +32,24 @@ class List extends React.Component {
                         });
                     }}
                 >
+                <div>
                     {this.props.listData.map(el => (
                         <div key={el.id} style={{width: '100%' }}
                             className="list-item">
-                            <a href={el.href}>
-                            <img src={el.img}/>
-                            <span>{el.name}</span>
-                            <span>{el.price}¥</span>
+                            <img src={
+                                el.img.indexOf('http') === -1?'http://'+el.img:el.img
+                            }/>
+                            <a href={el.href}><span>{el.name}</span></a>
+                            <span> ¥{el.price} </span>
                             {el.pricechange===0?'':(<span>价格
                             {el.pricechange>0?'增加':'减少'}
                             <strong style={{
                                 color:el.pricechange>0?'red':'green'
-                            }}> {Math.abs(el.pricechange)}¥ </strong>
+                            }}> ¥{Math.abs(el.pricechange)} </strong>
                             </span>)}
-                            </a>
                         </div>
                     ))}
+                </div>
                 </PullToRefresh>
             </div>
         )

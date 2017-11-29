@@ -1,13 +1,15 @@
 .list{
     display: flex;
-    margin-top: 32rem;
     margin-bottom: 2.5rem;
+    -webkit-overflow-scrolling: touch;
     .list-item{
         float: left;
         max-width: 50%;
+        padding:2px 2px;
         img{
                 width:auto;
                 height:auto;
+                min-height: 30px;
                 max-width:100%;
                 max-height:100%;
         }
@@ -21,6 +23,11 @@
             text-overflow: ellipsis;
             display: inline-block;
             text-align: center;
+        }
+        a{
+            span{
+                color: #108ee9
+            }
         }
     }   
 }
