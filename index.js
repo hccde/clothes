@@ -5,7 +5,7 @@ let Veromoda = require('./shops/veromoda.js');
 let Zara = require('./shops/zara.js');
 let time = 12*3600*1000;
 
-if(NODE_ENV == 'dev'){
+if(process.env.NODE_ENV == 'dev'){
     time = 0;
 }
 

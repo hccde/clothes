@@ -29,7 +29,7 @@
     "test": "none",
     "server": "node server/app.js",
     "init-database":"node lib/tools/init_database.js",
-    "dev":"NODE_ENV=dev"
+    "dev":"export NODE_ENV=dev && node index.js"
   },
   "repository": {
     "type": "git",
