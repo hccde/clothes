@@ -42,6 +42,9 @@
   },
   "homepage": "https://github.com/hccde/clothes#readme",
   "devDependencies": {
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "node-sass":"^4.0.0",
+    "webpack":"^3.0.0",
+    "react-native":"@*"
   }
 }
