@@ -4,7 +4,7 @@ let compress = require('compression');
 
 let app = express();
 app.use(compress());
-let server = app.listen(80,'127.0.0.1', function () {
+let server = app.listen(80,'localhost', function () {
   let host = server.address().address;
   let port = server.address().port;
 });
