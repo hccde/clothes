@@ -9,6 +9,9 @@ function Random(req,res){
 		 limit:pageSize, 
 		 offset:pageSize*currentPage
 	}).then((obj)=>{
+		obj.forEach((e)=>{
+            e.history = '';
+        });
 		res.json(obj);
 	});
 }

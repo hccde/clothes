@@ -6,7 +6,7 @@ function List(req,res){
 	let pageSize = Number(req.query.pageSize.toString());
 	pageSize =  pageSize > 0? pageSize:15;
 
-	Database.Main.findAll({
+	Database.Pricechange.findAll({
 		where: {
 		  	pricechange:{
 		  		[Database.sequelize.Op.ne]:0
@@ -16,6 +16,9 @@ function List(req,res){
 		 limit:pageSize, 
 		 offset:pageSize*currentPage
 	}).then((obj)=>{
+		obj.forEach((e)=>{
+            e.history = '';
+        });
 		res.json(obj);
 	});
 }

@@ -149,7 +149,7 @@ class Only extends Shop {
 				img:'http://'+option.headers.Host+good.gscMaincolPath,
 				price:good.originalPrice,
 				sale:good.sellCount,
-				desc:good.name+' : '+good.goodsInfo,
+				desc:good.goodsInfo,
 				id:'only'+ new Buffer(good.goodsName, 'utf-8').toString('hex'),
 				history:'',
 				yestdayprice:0, 
