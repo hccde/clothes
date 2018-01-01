@@ -15,25 +15,26 @@ class Content extends React.Component {
         this.state = {
             priceList: [],
             randomList:[],
-            searchList:[]
+            searchList:[],
+            _search:false
         };
+        this._key = '';
         this._priceList = void 0;
         this._randomList = void 0;
         this.getPriceList();
     };
     render() {
         return (
-            <div>
-                {this.state.searchList.length > 0?(<div>
+            <div className="list-container">
+                {this.state._search?(<div>
                     <section>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
-                            {this.state.searchList.length > 0 ?
-                                (<List listData={this.state.searchList} getList={this.getMoreSearch.bind(this)}>
-                                </List>) : ''}
+                            <List listData={this.state.searchList} getList={this.getMoreSearch.bind(this)}>
+                            </List>
                         </div>
                     </section>
                 </div>):
-                (<section>
+                (<div><section>
                     <Tabs tabs={tabs}
                         initialPage={0}
                         onChange={(tab, index) => {}}
@@ -53,7 +54,7 @@ class Content extends React.Component {
                                 </List>) : ''}
                         </div>
                     </Tabs>
-                </section>)
+                </section></div>)
                 }
             </div>
         )
@@ -64,7 +65,24 @@ class Content extends React.Component {
             priceList: this.state.priceList
         });
     }
-    async getMoreSearch(key){
+    async getMoreSearch(){
+        let res = await axios.get('/search',{
+            params:{
+                key:this._key,
+                currentPage:this.currentSearchPage,
+                pageSize:20
+            }
+        });
+        this.setState({
+            searchList: this.state.searchList.concat(res.data),
+            _search:true
+        },()=>{
+           this.currentSearchPage+=1;
+        });
+    }
+
+    async getSearch(key){
+        this._key = key;
         let res = await axios.get('/search',{
             params:{
                 key:key,
@@ -72,11 +90,21 @@ class Content extends React.Component {
                 pageSize:20
             }
         });
+        console.log(res.data)
         this.setState({
-            priceList: this.state.searchList.concat(res.data)
+            searchList: res.data,
+            _search:true
         },()=>{
-           this.currentSearchPage+=1;
+           this.currentSearchPage = 1;
         });
+    }
+
+    backMain(){
+        this.setState({
+            _search:false
+        },()=>{
+            this.currentSearchPage = 1;
+         })
     }
 
     async getMorePriceData(fn = function () {}) {

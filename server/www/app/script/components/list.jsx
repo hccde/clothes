@@ -16,7 +16,7 @@ class List extends React.Component {
     render() {
         return (
             <div style={{width:'100%'}} className="list">
-                <PullToRefresh
+                {/* <PullToRefresh
                     ref={el => this.ptr = el}
                     distanceToRefresh = {window.devicePixelRatio * 5}
                     style={{
@@ -32,10 +32,10 @@ class List extends React.Component {
                             this.setState({ refreshing: false });
                         });
                     }}
-                >
+                > */}
                 <div>
                     {this.props.listData.map(el => (
-                        <div key={el.id} style={{width: '100%' }}
+                        <div key={el.id}
                             className="list-item"> 
                             <img src="http://s.hancongcong.com/img.jpeg" ref={
                                 (e)=>{
@@ -63,15 +63,14 @@ class List extends React.Component {
                         </div>
                     ))}
                 </div>
-                </PullToRefresh>
             </div>
         )
     }
     componentDidMount() {
-        const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
-        this.setState({
-            height: hei
-        });
+        // const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
+        // // this.setState({
+        //     height: hei
+        // });
     }
 }
 export default List;
