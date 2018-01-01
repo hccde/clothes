@@ -3,57 +3,72 @@ import { Tabs } from 'antd-mobile';
 import List from './list.jsx';
 import axios from 'axios';
 import 'antd-mobile/lib/tabs/style/index.css'
-const tabs = [
-    { title: '价格变化' },
-    { title: '最新添加' },
-];
 class Content extends React.Component {
     constructor(props) {
         super(props);
         this.currentPricePage = 1;
         this.currentSearchPage = 1;
+        this.currentCreatePage = 1;
         this.state = {
             priceList: [],
-            randomList:[],
+            createList:[],
             searchList:[],
-            _search:false
+            _search:false,
+            active:1
         };
         this._key = '';
         this._priceList = void 0;
-        this._randomList = void 0;
-        this.getPriceList();
+        this._createList = void 0;
+        this.getPriceList()
     };
     render() {
         return (
             <div className="list-container">
-                {this.state._search?(<div>
+                {this.state._search?(
+                <div>
+                <ul className="tabs">
+                    <li style={{ width:"100%"}}>搜索结果</li>
+                </ul>
+                <div className="list-main">
                     <section>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
                             <List listData={this.state.searchList} getList={this.getMoreSearch.bind(this)}>
                             </List>
                         </div>
                     </section>
-                </div>):
+                </div></div>):
                 (<div><section>
-                    <Tabs tabs={tabs}
-                        initialPage={0}
-                        onChange={(tab, index) => {}}
-                        onTabClick={(tab, index) => {
-                            if(index == 1){
-                                this.getRandomData();
+                    <ul className="tabs">
+                        <li className={this.state.active == 1?'active':''} onClick={
+                            ()=>{
+                                this.setState({
+                                    active:1
+                                });
                             }
-                        }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
-                            {this.state.priceList.length > 0 ?
-                                (<List listData={this.state.priceList} getList={this.getMorePriceData.bind(this)}>
-                                </List>) : ''}
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
-                            {this.state.randomList.length > 0 ?
-                                (<List listData={this.state.randomList} getList={this.getRandomData.bind(this)}>
-                                </List>) : ''}
-                        </div>
-                    </Tabs>
+                        }>价格变化</li>
+
+                        <li className= {this.state.active == 2?'active':''} onClick={
+                            ()=>{
+                                if(this.state.createList.length <= 0){
+                                    this.getcreateData();
+                                }
+                                this.setState({
+                                    active:2
+                                });
+                        }}>最近添加</li>
+                    </ul>
+                    <div style={{alignItems: 'center', justifyContent: 'center', 
+                    backgroundColor: '#fff',display:this.state.active==1?'flex':'none' }} className="list-main">
+                        {this.state.priceList.length > 0 ?
+                            (<List listData={this.state.priceList} getList={this.getMorePriceData.bind(this)}>
+                            </List>) : ''}
+                    </div>
+                    <div style={{alignItems: 'center', justifyContent: 'center',
+                     backgroundColor: '#fff',display:this.state.active==2?'flex':'none' }} className="list-main">
+                        {this.state.createList.length > 0 ?
+                            (<List listData={this.state.createList} getList={this.getcreateData.bind(this)}>
+                            </List>) : ''}
+                    </div>
                 </section></div>)
                 }
             </div>
@@ -63,6 +78,13 @@ class Content extends React.Component {
     componentDidMount() {
         this.setState({
             priceList: this.state.priceList
+        },()=>{
+            let els = document.getElementsByClassName('list-main');
+            for(let i = 0;i<els.length;i++){
+                els[i].addEventListener('scroll',()=>{
+                    console.log(1);
+                })
+            }
         });
     }
     async getMoreSearch(){
@@ -114,25 +136,31 @@ class Content extends React.Component {
         });
         fn();
     }
-    async getRandomData(fn=function(){}){
-        if(this._randomList === void 0 
-            || this._randomList.length <= 0){
+    async getcreateData(fn=function(){}){
+        if(this._createList === void 0 
+            || this._createList.length <= 0){
             //get nextturn data
-            let res = await axios.get('/random');
-            if(this._randomList === void 0
-                 && (this._randomList = res.data)
+            let res = await axios.get('/newItem',{
+                params:{
+                    currentPage:this.currentCreatePag,
+                    pageSize:20
+                }
+            });
+            this.currentCreatePag+=1;
+            if(this._createList === void 0
+                 && (this._createList = res.data)
                 ){
-                    this.getRandomData();
+                    this.getcreateData();
             }
-            this._randomList = res.data;
+            this._createList = res.data;
         }else{
             await true;
             this.setState({
-                randomList: this.state.randomList.concat(this._randomList)
+                createList: this.state.createList.concat(this._createList)
             },()=>{
                 fn();
-                this._randomList = [];
-                this.getRandomData();
+                this._createList = [];
+                this.getcreateData();
             });
         }
     }

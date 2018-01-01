@@ -25,6 +25,9 @@ class Main extends React.Component {
 	}
 	back(){
 		this.refs.content.backMain();
+		this.setState({
+			hasBack:false
+		})
 	}
 }
 function Input(props){
