@@ -12,9 +12,6 @@ function List(req,res){
         where: { 
             name: { 
                 [Database.sequelize.Op.like]: '%'+keyword+'%'
-            },
-            updateAt:{
-                [Database.sequelize.Op.gte]:beforeDay
             }
         },
 		order: [['pricechange', 'ASC']],

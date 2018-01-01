@@ -4,16 +4,18 @@ import List from './list.jsx';
 import axios from 'axios';
 import 'antd-mobile/lib/tabs/style/index.css'
 const tabs = [
-    { title: '价格变动' },
-    { title: '随便看看' },
+    { title: '价格变化' },
+    { title: '最新添加' },
 ];
 class Content extends React.Component {
     constructor(props) {
         super(props);
         this.currentPricePage = 1;
+        this.currentSearchPage = 1;
         this.state = {
             priceList: [],
-            randomList:[]
+            randomList:[],
+            searchList:[]
         };
         this._priceList = void 0;
         this._randomList = void 0;
@@ -21,13 +23,21 @@ class Content extends React.Component {
     };
     render() {
         return (
-            <div style={{ height: '100%' }}>
-                <section style={{ height: '100%' }}>
+            <div>
+                {this.state.searchList.length > 0?(<div>
+                    <section>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
+                            {this.state.searchList.length > 0 ?
+                                (<List listData={this.state.searchList} getList={this.getMoreSearch.bind(this)}>
+                                </List>) : ''}
+                        </div>
+                    </section>
+                </div>):
+                (<section>
                     <Tabs tabs={tabs}
                         initialPage={0}
                         onChange={(tab, index) => {}}
                         onTabClick={(tab, index) => {
-                            console.log(index)
                             if(index == 1){
                                 this.getRandomData();
                             }
@@ -43,7 +53,8 @@ class Content extends React.Component {
                                 </List>) : ''}
                         </div>
                     </Tabs>
-                </section>
+                </section>)
+                }
             </div>
         )
     };
@@ -53,6 +64,21 @@ class Content extends React.Component {
             priceList: this.state.priceList
         });
     }
+    async getMoreSearch(key){
+        let res = await axios.get('/search',{
+            params:{
+                key:key,
+                currentPage:this.currentSearchPage,
+                pageSize:20
+            }
+        });
+        this.setState({
+            priceList: this.state.searchList.concat(res.data)
+        },()=>{
+           this.currentSearchPage+=1;
+        });
+    }
+
     async getMorePriceData(fn = function () {}) {
         await this.getPriceList({
             currentPage: (this.currentPricePage += 1),
@@ -60,7 +86,6 @@ class Content extends React.Component {
         });
         fn();
     }
-
     async getRandomData(fn=function(){}){
         if(this._randomList === void 0 
             || this._randomList.length <= 0){

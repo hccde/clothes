@@ -28,9 +28,9 @@
   "scripts": {
     "test": "none",
     "server": "node server/app.js",
-    "init-database":"node lib/tools/init_database.js",
-    "dev":"export NODE_ENV=dev && node index.js",
-    "devserver":"export NODE_ENV=dev && node server/app.js"
+    "init-database": "node lib/tools/init_database.js",
+    "dev": "export NODE_ENV=dev && node index.js",
+    "devserver": "export NODE_ENV=dev && node server/app.js"
   },
   "repository": {
     "type": "git",
@@ -43,9 +43,10 @@
   },
   "homepage": "https://github.com/hccde/clothes#readme",
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
+    "node-sass": "^4.0.0",
+    "react-native": "@*",
     "sass-loader": "^6.0.6",
-    "node-sass":"^4.0.0",
-    "webpack":"^3.0.0",
-    "react-native":"@*"
+    "webpack": "^3.0.0"
   }
 }
