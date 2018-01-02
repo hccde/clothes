@@ -1,8 +1,6 @@
 import React from 'react';
-import { Tabs } from 'antd-mobile';
 import List from './list.jsx';
 import axios from 'axios';
-import 'antd-mobile/lib/tabs/style/index.css'
 class Content extends React.Component {
     constructor(props) {
         super(props);
@@ -14,7 +12,8 @@ class Content extends React.Component {
             createList:[],
             searchList:[],
             _search:false,
-            active:1
+            active:1,
+            height:566
         };
         this._key = '';
         this._priceList = void 0;
@@ -29,9 +28,9 @@ class Content extends React.Component {
                 <ul className="tabs">
                     <li style={{ width:"100%"}}>搜索结果</li>
                 </ul>
-                <div className="list-main">
+                <div className="list-main" style={{height:this.state.height}}>
                     <section>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
+                        <div>
                             <List listData={this.state.searchList} getList={this.getMoreSearch.bind(this)}>
                             </List>
                         </div>
@@ -57,14 +56,12 @@ class Content extends React.Component {
                                 });
                         }}>最近添加</li>
                     </ul>
-                    <div style={{alignItems: 'center', justifyContent: 'center', 
-                    backgroundColor: '#fff',display:this.state.active==1?'flex':'none' }} className="list-main">
+                    <div style={{display:this.state.active==1?'block':'none',height:this.state.height }} className="list-main">
                         {this.state.priceList.length > 0 ?
                             (<List listData={this.state.priceList} getList={this.getMorePriceData.bind(this)}>
                             </List>) : ''}
                     </div>
-                    <div style={{alignItems: 'center', justifyContent: 'center',
-                     backgroundColor: '#fff',display:this.state.active==2?'flex':'none' }} className="list-main">
+                    <div style={{display:this.state.active==2?'block':'none',height:this.state.height }} className="list-main">
                         {this.state.createList.length > 0 ?
                             (<List listData={this.state.createList} getList={this.getcreateData.bind(this)}>
                             </List>) : ''}
@@ -76,13 +73,18 @@ class Content extends React.Component {
     };
 
     componentDidMount() {
+        let remNum = parseFloat(window.getComputedStyle(document.documentElement)["fontSize"]);
+        let visiableHeight = document.documentElement.clientHeight;
+        let offtop = 6*remNum+5;
         this.setState({
             priceList: this.state.priceList
         },()=>{
             let els = document.getElementsByClassName('list-main');
+            this.state.height = visiableHeight - offtop;
             for(let i = 0;i<els.length;i++){
-                els[i].addEventListener('scroll',()=>{
-                    console.log(1);
+                els[i].addEventListener('scroll',(e)=>{
+                    // console.log(els[i].clientHeight+offtop);
+                    console.log(e.target.scrollTop);
                 })
             }
         });

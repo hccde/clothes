@@ -1,7 +1,5 @@
 import React from 'React';
 import ReactDOM from 'react-dom';
-import { PullToRefresh } from 'antd-mobile';
-import 'antd-mobile/lib/pull-to-refresh/style/index.css';
 import '../../css/components/_list.scss';
 class List extends React.Component {
     constructor(props) {
@@ -16,24 +14,6 @@ class List extends React.Component {
     render() {
         return (
             <div style={{width:'100%'}} className="list">
-                {/* <PullToRefresh
-                    ref={el => this.ptr = el}
-                    distanceToRefresh = {window.devicePixelRatio * 5}
-                    style={{
-                        height: this.state.height,
-                        overflow: 'auto',
-                    }}
-                    indicator={this.state.down ? {} : { deactivate: '上拉可以刷新' }}
-                    direction={this.state.down ? 'down' : 'up'}
-                    refreshing={this.state.refreshing}
-                    onRefresh={() => {
-                        this.setState({ refreshing: true });
-                        this.props.getList(()=>{
-                            this.setState({ refreshing: false });
-                        });
-                    }}
-                > */}
-                <div>
                     {this.props.listData.map(el => (
                         <div key={el.id}
                             className="list-item"> 
@@ -62,15 +42,10 @@ class List extends React.Component {
                             </span>)}
                         </div>
                     ))}
-                </div>
             </div>
         )
     }
     componentDidMount() {
-        // const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
-        // // this.setState({
-        //     height: hei
-        // });
     }
 }
 export default List;
