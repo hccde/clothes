@@ -14,8 +14,8 @@ class List extends React.Component {
     render() {
         return (
             <div style={{width:'100%'}} className="list">
-                    {this.props.listData.map(el => (
-                        <div key={el.id}
+                    {this.props.listData.map((el,index) => (
+                        <div key={index}
                             className="list-item"> 
                             <img src="http://s.hancongcong.com/img.jpeg" ref={
                                 (e)=>{

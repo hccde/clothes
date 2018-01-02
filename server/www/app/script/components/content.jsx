@@ -23,20 +23,15 @@ class Content extends React.Component {
     render() {
         return (
             <div className="list-container">
-                {this.state._search?(
-                <div>
+                <div style={{display:this.state._search?"block":"none"}}>
                 <ul className="tabs">
                     <li style={{ width:"100%"}}>搜索结果</li>
                 </ul>
                 <div className="list-main" style={{height:this.state.height}}>
-                    <section>
-                        <div>
                             <List listData={this.state.searchList} getList={this.getMoreSearch.bind(this)}>
                             </List>
-                        </div>
-                    </section>
-                </div></div>):
-                (<div><section>
+                </div></div>
+                <div style={{display:!this.state._search?"block":"none"}}><section>
                     <ul className="tabs">
                         <li className={this.state.active == 1?'active':''} onClick={
                             ()=>{
@@ -66,27 +61,43 @@ class Content extends React.Component {
                             (<List listData={this.state.createList} getList={this.getcreateData.bind(this)}>
                             </List>) : ''}
                     </div>
-                </section></div>)
-                }
+
+                </section></div>
             </div>
         )
     };
 
-    componentDidMount() {
+    addScrollEvent(){
         let remNum = parseFloat(window.getComputedStyle(document.documentElement)["fontSize"]);
         let visiableHeight = document.documentElement.clientHeight;
         let offtop = 6*remNum+5;
-        this.setState({
-            priceList: this.state.priceList
-        },()=>{
-            let els = document.getElementsByClassName('list-main');
+        let els = document.getElementsByClassName('list-main');
+            let elist = document.getElementsByClassName('list');
             this.state.height = visiableHeight - offtop;
             for(let i = 0;i<els.length;i++){
                 els[i].addEventListener('scroll',(e)=>{
-                    // console.log(els[i].clientHeight+offtop);
-                    console.log(e.target.scrollTop);
+                    let remainHeight = elist[i].clientHeight - e.target.scrollTop - this.state.height
+                    console.log(remainHeight)
+                    if(remainHeight < 100){
+                        //pull data
+                        if(this.state._search){ //search
+                            console.log('search')
+                            this.getMoreSearch();
+                        }else if(this.state.active == 1){//price
+                            console.log(1);
+                            this.getMorePriceData();
+                        }else{//created
+                            this.getcreateData();
+                        }
+                    }
                 })
             }
+    }
+    componentDidMount() {
+        this.setState({
+            priceList: this.state.priceList
+        },()=>{
+            this.addScrollEvent();
         });
     }
     async getMoreSearch(){
