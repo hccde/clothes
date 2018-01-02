@@ -34,17 +34,16 @@ function Input(props){
 	let value = '';
 	return <header className="search-bar"> 
 			<a className="back-wrap">
-			{props.hasBack?(<span className="back" onClick={()=>{
+			{props.hasBack?(<span className="icon-返回箭头 back" onClick={()=>{
 				props.onBack();
-			}}>后退</span>):''}
+			}}></span>):''}
 			</a>
 			<input className="search" type="textarea" onChange={(e)=>{
 				value = e.target.value;
 			}} />
 			<span onClick={()=>{
 				props.onInputClick(value)
-			}}>
-				搜索
+			}} className="icon-搜索 search-icon">
 			</span>
 		</header>
 }

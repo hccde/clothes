@@ -7,7 +7,7 @@ if(process.env.NODE_ENV == 'dev'){
 }
 let app = express();
 app.use(compress());
-let server = app.listen(port,'localhost', function () {
+let server = app.listen(port,'0.0.0.0', function () {
   let host = server.address().address;
   let port = server.address().port;
 });

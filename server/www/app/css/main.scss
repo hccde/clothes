@@ -5,6 +5,10 @@ html,body{
     padding: 0px;
     margin: 0px;
 }
+input{
+    margin: 0;
+    padding:0;
+}
 ::-webkit-scrollbar{
    display: none; 
 }
@@ -21,7 +25,7 @@ html,body{
     }
     .search{
         height: 2.5rem;
-        width:75%;
+        width:70%;
         border:1px solid #dedede;
         outline: none;
         color: #555;
@@ -30,13 +34,31 @@ html,body{
         text-indent: 0.5rem;
         margin: 0.5rem;
     }
-    .back-wrap{
-        width: 6%;
+    .search-icon{
         display: inline-block;
+        text-align: center;
+        line-height: 2.5rem;
+        font-size: 24px;
+        width: 10%;
+        vertical-align: middle;
+    }
+    .back-wrap{
+        width: 10%;
+        text-align: center;
+        font-size: 24px;
+        display: inline-block;
+        span{
+            display: inline-block;
+            text-align: center;
+            margin-left: 1rem;
+            line-height: 2.5rem;
+            vertical-align: middle;
+        }
     }
 }
 .list-container{
     height: calc( 100% - 3.5rem );
+    -webkit-overflow-scrolling: touch;
     &>div{
         height: 100%;
         &>section{
@@ -62,6 +84,7 @@ html,body{
     .list-main{
         height: 566px;
         overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
         overflow-x: hidden;
         ::-webkit-scrollbar{
             display: none; 
@@ -71,3 +94,4 @@ html,body{
 
 @import './components/dateboard.scss';
 @import './components/list.scss';
+@import './font.css'

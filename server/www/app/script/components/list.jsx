@@ -16,7 +16,13 @@ class List extends React.Component {
             <div style={{width:'100%'}} className="list">
                     {this.props.listData.map((el,index) => (
                         <div key={index}
-                            className="list-item"> 
+                            className="list-item"
+                            onClick={
+                                ()=>{
+                                    window.location.href = el.href;
+                                }
+                            }
+                            > 
                             <img src="http://s.hancongcong.com/img.jpeg" ref={
                                 (e)=>{
                                     if(!e){
@@ -32,7 +38,7 @@ class List extends React.Component {
                                     }
                                 }
                             } style = {{opacity:0.08}} />
-                            <a href={el.href}><span>{el.name}</span></a>
+                            <span className="name">{el.name}</span>
                             <span> ¥{el.price} </span>
                             {el.pricechange===0?'':(<span>价格
                             {el.pricechange>0?'增加':'减少'}
