@@ -77,14 +77,11 @@ class Content extends React.Component {
             for(let i = 0;i<els.length;i++){
                 els[i].addEventListener('scroll',(e)=>{
                     let remainHeight = elist[i].clientHeight - e.target.scrollTop - this.state.height
-                    console.log(remainHeight)
                     if(remainHeight < 100){
                         //pull data
                         if(this.state._search){ //search
-                            console.log('search')
                             this.getMoreSearch();
                         }else if(this.state.active == 1){//price
-                            console.log(1);
                             this.getMorePriceData();
                         }else{//created
                             this.getcreateData();
