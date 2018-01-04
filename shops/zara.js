@@ -25,11 +25,11 @@ let option = new Option({
         't':'*',
         'lang':'zh_CN',
         'store':11716,
-        'catalogue':21551,
+        'catalogue':25052,
         'warehouse':14551,
         'start':0,
         'rows':24,
-        'session':'e6461b78-e6f0-42b3-95a9-52b1b699cd8b',
+        'session':'b82ea90f-6d62-497c-bd7d-37dd9fb966b9',
         'user':'f0b79cd7-2dc6-4901-bb18-84aa4518a9a1'
     },
 	total:Number.MAX_VALUE,
@@ -115,6 +115,7 @@ class Zara extends Shop {
         let res = [];
         https://static.zara-static.cn/photos///2017/I/0/1/p/8045/422/401/2/w/400/8045422401_2_3_1.jpg?ts=1503413012569
 		try{
+			console.log(data)
             data.products.forEach((good)=>{
                 res.push({
                     href:'https://www.zara.cn/cn/zh/'+good.seo.keyword+'-p'+good.seo.seoProductId+'.html',
