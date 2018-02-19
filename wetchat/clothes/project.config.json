@@ -8,9 +8,10 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.6.6",
-	"appid": "wx7fc36dbb71f22494",
-	"projectname": "%E5%A4%A7%E5%AE%B6%E3%81%AE%E8%A1%A3%E6%9C%8D",
+	"libVersion": "1.9.91",
+	"appid": "wx309f6c8cac8aaded",
+	"projectname": "clothes",
+	"isGameTourist": false,
 	"condition": {
 		"search": {
 			"current": -1,
@@ -18,6 +19,10 @@
 		},
 		"conversation": {
 			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
