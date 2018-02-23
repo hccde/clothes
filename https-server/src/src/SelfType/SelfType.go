@@ -11,7 +11,6 @@ var wetchatinfo wetchatInfo
 func init(){
     jsonbuf := readJson("../_wetchat.json")
     err := json.Unmarshal(jsonbuf, &wetchatinfo)
-    fmt.Println(wetchatinfo.Appid+"a")
     if(err != nil){
         panic(err)
     }
