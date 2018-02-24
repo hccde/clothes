@@ -9,6 +9,7 @@ import (
 )
 //init router
 func Init(r *gin.Engine){
+
     r.GET("/test",func(c *gin.Context){
         c.JSON(200,gin.H{
             "message": "ok",
@@ -16,10 +17,11 @@ func Init(r *gin.Engine){
     });
 
     r.GET("/api/wxlogin",func(c *gin.Context) {
-        wxlogin := SelfType.NewWXLogin(c.Query("code"));
+        wxlogin := SelfType.NewWXLogin(c.Query("code"))
         getWXOpenId(&wxlogin)
         c.JSON(200,gin.H{
             "message": "ok",
+            "session": "self_session",
         })
     })
 }
