@@ -45,7 +45,7 @@
   "devDependencies": {
     "babel-polyfill": "^6.26.0",
     "node-sass": "^4.0.0",
-    "react-native": "@*",
+    "react-native": "",
     "sass-loader": "^6.0.6",
     "webpack": "^3.0.0"
   }

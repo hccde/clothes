@@ -78,6 +78,12 @@
   top: 10px;
   left: -6px;
 }
-.index-list {
-
+.scroll-view-item{
+  width: 50%;
+  float: left;
+}
+.index-listitem-text{
+  text-align: center;
+  font-size: 13px;
+  color: #666;
 }

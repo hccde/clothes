@@ -20,8 +20,13 @@
     筛选<span class="index-picker"></span>
   </view>
   <view class='index-list'>
-  <scroll-view scroll-y style="height: calc(100%-107px);" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view wx:for="{{listData}}" class="scroll-view-item bc_green">{{index}}</view>
+  <scroll-view scroll-y style="height:{{scrollviewHeight}};" bindscrolltoupper="upper" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    <view wx:for="{{listData}}" class="scroll-view-item bc_green">
+      <view class='index-list-item'>
+        <image src='{{item.img}}' mode='widthFix' style='width:100%'></image>
+        <view class='index-listitem-text'>{{item.name}}</view>
+      </view>
+    </view>
   </scroll-view>
   </view>
 </view>

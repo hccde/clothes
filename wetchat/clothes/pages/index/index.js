@@ -10,7 +10,9 @@ Page({
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     toView: 'red',
     scrollTop: 100,
-    listData:new Array(100)
+    listData:[],
+    scrollviewHeight: 0,
+    page:0,
   },
   //事件处理函数
   bindViewTap: function() {
@@ -19,7 +21,9 @@ Page({
     })
   },
   onLoad: function () {
+    this.init();
     this.getAuth();
+    this.getList();
   },
   getUserInfo: function(e) {
     app.globalData.userInfo = e.detail.userInfo
@@ -62,13 +66,11 @@ Page({
   },
   //scroll view
   upper: function (e) {
-    console.log(e)
+    // console.log(e)
   },
   lower: function (e) {
-    console.log(e)
-  },
-  scroll: function (e) {
-    console.log(e)
+    console.log(this.data.page)
+    this.getList(this.data.page++)
   },
   tap: function (e) {
     for (var i = 0; i < order.length; ++i) {
@@ -84,5 +86,28 @@ Page({
     this.setData({
       scrollTop: this.data.scrollTop + 10
     })
+  },
+  getList(page=0){
+    wx.request({
+      url: 'https://www.cheapyi.com/api/list',
+      data:{
+        currentPage:page,
+        pageSize:20
+      },
+      success:(res) => {
+        this.setData({
+          listData: this.data.listData.concat(res.data)
+        }) 
+      }
+    })
+  },
+  init(){
+    var systemInfo = wx.getSystemInfoSync();
+    app.globalData.systemInfo = systemInfo;
+    var height = parseFloat(systemInfo.windowHeight);
+    // console.log(height * (750 / height) - 107,222)
+    this.setData({
+      scrollviewHeight: (height - 126.5)+"px"
+    });
   }
 })
