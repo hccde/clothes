@@ -11,6 +11,12 @@
 			"versionExact": "v1.2"
 		},
 		{
+			"checksumSHA1": "ZbU8qGzETzJZ2t30LmHxla5PLMY=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "bc14601d1bd56421dd60f561e6052c9ed77f9daf",
+			"revisionTime": "2018-01-25T05:47:45Z"
+		},
+		{
 			"checksumSHA1": "rro98K08E4cpMkmaMe6C0bQheSg=",
 			"path": "github.com/jinzhu/gorm",
 			"revision": "48a20a6e9f3f4d26095df82c3337efec6db0a6fc",
@@ -29,11 +35,15 @@
 			"revisionTime": "2018-02-05T16:51:14Z"
 		},
 		{
+			"path": "google.golang.org/appengine/cloudsql",
+			"revision": ""
+		},
+		{
 			"checksumSHA1": "qOmvuDm+F+2nQQecUZBVkZrTn6Y=",
 			"path": "gopkg.in/yaml.v2",
 			"revision": "d670f9405373e636a5a2765eea47fac0c9bc91a4",
 			"revisionTime": "2018-01-09T11:43:31Z"
 		}
 	],
-	"rootPath": "/Users/zakj/Users/admos/github/clothes/https-server/src"
+	"rootPath": "/Users/admos/Documents/github/clothes/https-server/src"
 }

@@ -6,7 +6,11 @@ import (
     "net/http"
     "io/ioutil"
     "src/SelfType"
+    "src/Model"
 )
+func init() {
+    Model.Search()
+}
 //init router
 func Init(r *gin.Engine){
 

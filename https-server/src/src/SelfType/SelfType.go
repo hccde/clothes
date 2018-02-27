@@ -1,21 +1,23 @@
 package SelfType
 
 import(
-    "encoding/json"
+    // "encoding/json"
     "io/ioutil"
     "fmt"
 )
 
 var wetchatinfo wetchatInfo
 
-func init(){
-    jsonbuf := readJson("../_wetchat.json")
-    err := json.Unmarshal(jsonbuf, &wetchatinfo)
-    if(err != nil){
-        panic(err)
-    }
+// func init(){
+//     jsonbuf := readJson("../_wetchat.json")
+//     //release ptr
+//     err := json.Unmarshal(jsonbuf, &wetchatinfo)
+//     if(err != nil){
+//         panic(err)
+//     }
 
-}
+// }
+
 type wetchatInfo struct {
     Appid string `json:"appid"`
     Secret string `json:"secret"`
