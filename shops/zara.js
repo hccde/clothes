@@ -98,7 +98,6 @@ class Zara extends Shop {
 		}else{
 			option.qs['start'] += option.qs['rows']; //jump
 			logFile.warn('warn: one request failed' + e.toString() + JSON.stringify(opt));
-			console.log(e);
 		}
 	}
 
@@ -115,7 +114,6 @@ class Zara extends Shop {
         let res = [];
         https://static.zara-static.cn/photos///2017/I/0/1/p/8045/422/401/2/w/400/8045422401_2_3_1.jpg?ts=1503413012569
 		try{
-			console.log(data)
             data.products.forEach((good)=>{
                 res.push({
                     href:'https://www.zara.cn/cn/zh/'+good.seo.keyword+'-p'+good.seo.seoProductId+'.html',
@@ -134,7 +132,6 @@ class Zara extends Shop {
 				// console.log(good.detail.name)
 			})
 		}catch(e){
-			console.log(e);
 			logFile.error('fatal:page changed,selectors have failed: '+e.toString());
 		}
 		return res;
