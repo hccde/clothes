@@ -1,0 +1,12 @@
+<!--pages/detail/detail.wxml-->
+<view class='detail'>
+  <image src='{{item.Img}}'mode='widthFix' style='width:100%'></image>
+  <view>
+    <text class='name'>商品名：{{item.Name}}</text>
+    <text class='price'>价格{{item.Price}}元  价格{{item.Pricechange>0?'增加了':'减少了'}} {{item.Pricechange>0?item.Pricechange:-(item.Pricechange)}}元</text>
+  </view>
+  <view>
+    <text>历史价格：</text>
+    <canvas canvas-id="lineCanvas" style='height:300px;' disable-scroll="true" class="canvas"></canvas>
+  </view>
+</view>

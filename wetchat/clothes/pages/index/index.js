@@ -16,9 +16,9 @@ Page({
   },
   //事件处理函数
   bindViewTap: function() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    // wx.navigateTo({
+    //   url: '../logs/logs'
+    // })
   },
   onLoad: function () {
     this.init();
@@ -89,16 +89,33 @@ Page({
   },
   getList(page=0){
     wx.request({
-      url: 'https://www.cheapyi.com/api/list',
+      url: 'http://127.0.0.1:4000/api/list',
       data:{
         currentPage:page,
         pageSize:20
       },
       success:(res) => {
         this.setData({
-          listData: this.data.listData.concat(res.data)
+          listData: this.data.listData.concat(res.data.data)
         }) 
       }
+    })
+  },
+  clickItem(event){
+    let item = event.currentTarget.dataset.id
+    app.globalData.focusItem = item;
+    wx.navigateTo({
+      url: '../history/history'
+    })
+  },
+  goToHistory(){
+    wx.navigateTo({
+      url: '../history/history'
+    })
+  },
+  goToLike(){
+    wx.navigateTo({
+      url: '../detail/detail'
     })
   },
   init(){

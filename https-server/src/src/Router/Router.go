@@ -7,18 +7,18 @@ import (
     "io/ioutil"
     "src/SelfType"
     "src/Model"
+    "strconv"
 )
 func init() {
-    Model.Search()
 }
 //init router
 func Init(r *gin.Engine){
 
-    r.GET("/test",func(c *gin.Context){
+    r.GET("/api/test",func(c *gin.Context){
         c.JSON(200,gin.H{
             "message": "ok",
         })
-    });
+    })
 
     r.GET("/api/wxlogin",func(c *gin.Context) {
         wxlogin := SelfType.NewWXLogin(c.Query("code"))
@@ -26,6 +26,15 @@ func Init(r *gin.Engine){
         c.JSON(200,gin.H{
             "message": "ok",
             "session": "self_session",
+        })
+    })
+
+    r.GET("/api/list",func(c *gin.Context) {
+        page,_:= strconv.Atoi(c.DefaultQuery("currentPage","1"))
+        limit,_ := strconv.Atoi(c.DefaultQuery("pageSize","20"))
+        res := Model.GetList(page,limit) 
+        c.JSON(200,gin.H{
+            "data":*res,
         })
     })
 }

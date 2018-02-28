@@ -46,15 +46,15 @@
   width: 100%;
 }
 
-.index-filter{
+.index-filter {
   height: 30px;
   line-height: 30px;
   text-align: right;
   font-size: 12px;
   color: #777;
 }
+
 .index-picker {
-  
 }
 
 .index-picker:before {
@@ -78,12 +78,21 @@
   top: 10px;
   left: -6px;
 }
-.scroll-view-item{
+
+.scroll-view-item {
   width: 50%;
   float: left;
+  margin-bottom: 30rpx;
 }
-.index-listitem-text{
+
+.index-listitem-text {
   text-align: center;
-  font-size: 13px;
   color: #666;
+  font-size: 32rpx;
+}
+.text-overflow{
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
 }

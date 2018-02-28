@@ -9,8 +9,8 @@
       <view class='userinfo-function'>
         <view class='userinfo-nickname'>{{userInfo.nickName}}</view>
         <view class='userinfo-menu'>
-          <text>  😁  浏览历史  </text>
-          <text>  ❤️  我的收藏  </text>
+          <text bindtap="goToHistory">  😁  浏览历史  </text>
+          <text bindtap="goToLike">  ❤️  我的收藏  </text>
         </view>
       </view>
     </view>
@@ -21,10 +21,16 @@
   </view>
   <view class='index-list'>
   <scroll-view scroll-y style="height:{{scrollviewHeight}};" bindscrolltoupper="upper" bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view wx:for="{{listData}}" class="scroll-view-item bc_green">
+    <view wx:for="{{listData}}" class="scroll-view-item bc_green" wx:key="{{item.Id}}">
       <view class='index-list-item'>
-        <image src='{{item.img}}' mode='widthFix' style='width:100%'></image>
-        <view class='index-listitem-text'>{{item.name}}</view>
+        <image src='{{item.Img}}' mode='widthFix' style='width:100%' bindtap="clickItem" data-id="{{item}}"></image>
+        <view class='index-listitem-text'><text class='text-overflow'>{{item.Name}}</text></view>
+        <view class='index-listitem-text'>
+          <text style='display:inline;{{item.Pricechange>0?"color:red":"color:green"}}'>
+            价格{{item.Pricechange>0?'增加':'减少'}} {{ item.Pricechange>0?item.Pricechange:-(item.Pricechange) }}
+          </text>
+        </view>
+        <view class='index-listitem-text'>价格 {{item.Price}}</view>
       </view>
     </view>
   </scroll-view>
