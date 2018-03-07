@@ -55,7 +55,19 @@ func connect() *gorm.DB {
 
 func GetList(page int, limit int) *[]Pricechanges {
     var pricechanges []Pricechanges
-    db.Not("pricechange",0).Offset(page*limit).Limit(limit).Find(&pricechanges)
+    db.Order("pricechange").Offset(page*limit).Limit(limit).Find(&pricechanges)
     return &pricechanges
+}
+
+func GetListByWord(key string , page int, limit int) *[]Mains {
+    var mains []Mains
+    db.Where("name LIKE ?", "%"+ key +"%").Offset(page*limit).Limit(limit).Find(&mains)
+    return &mains
+}
+
+func GetListByShop(key string, page int, limit int) *[]Mains{
+    var mains []Mains
+    db.Where("href LIKE ?", "%"+ key +"%").Offset(page*limit).Limit(limit).Find(&mains)
+    return &mains
 }
 

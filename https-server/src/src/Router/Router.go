@@ -37,6 +37,26 @@ func Init(r *gin.Engine){
             "data":*res,
         })
     })
+
+    r.GET("/api/search",func(c *gin.Context) {
+        key:= c.DefaultQuery("key","衣")
+        page,_:= strconv.Atoi(c.DefaultQuery("currentPage","1"))
+        limit,_ := strconv.Atoi(c.DefaultQuery("pageSize","20"))
+        res := Model.GetListByWord(key,page,limit) 
+        c.JSON(200,gin.H{
+            "data":*res,
+        })
+    })
+
+    r.GET("/api/getshop",func(c *gin.Context) {
+        key:= c.DefaultQuery("shop","hm")
+        page,_:= strconv.Atoi(c.DefaultQuery("currentPage","1"))
+        limit,_ := strconv.Atoi(c.DefaultQuery("pageSize","20"))
+        res := Model.GetListByShop(key,page,limit) 
+        c.JSON(200,gin.H{
+            "data":*res,
+        })
+    })
 }
 
 //request for wxopenid 
