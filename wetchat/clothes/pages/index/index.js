@@ -66,7 +66,7 @@ Page({
   },
   //scroll view
   upper: function (e) {
-    // console.log(e)
+    console.log(e)
   },
   lower: function (e) {
     console.log(this.data.page)
@@ -87,9 +87,9 @@ Page({
       scrollTop: this.data.scrollTop + 10
     })
   },
-  getList(page=0){
+  getList(page=1){
     wx.request({
-      url: 'http://127.0.0.1:4000/api/list',
+      url: 'https://www.cheapyi.com/api/list',
       data:{
         currentPage:page,
         pageSize:20
