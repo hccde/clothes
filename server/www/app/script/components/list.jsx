@@ -1,7 +1,5 @@
 import React from 'React';
 import ReactDOM from 'react-dom';
-import { PullToRefresh } from 'antd-mobile';
-import 'antd-mobile/lib/pull-to-refresh/style/index.css';
 import '../../css/components/_list.scss';
 class List extends React.Component {
     constructor(props) {
@@ -16,27 +14,15 @@ class List extends React.Component {
     render() {
         return (
             <div style={{width:'100%'}} className="list">
-                <PullToRefresh
-                    ref={el => this.ptr = el}
-                    distanceToRefresh = {window.devicePixelRatio * 5}
-                    style={{
-                        height: this.state.height,
-                        overflow: 'auto',
-                    }}
-                    indicator={this.state.down ? {} : { deactivate: '上拉可以刷新' }}
-                    direction={this.state.down ? 'down' : 'up'}
-                    refreshing={this.state.refreshing}
-                    onRefresh={() => {
-                        this.setState({ refreshing: true });
-                        this.props.getList(()=>{
-                            this.setState({ refreshing: false });
-                        });
-                    }}
-                >
-                <div>
-                    {this.props.listData.map(el => (
-                        <div key={el.id} style={{width: '100%' }}
-                            className="list-item"> 
+                    {this.props.listData.map((el,index) => (
+                        <div key={index}
+                            className="list-item"
+                            onClick={
+                                ()=>{
+                                    window.location.href = el.href;
+                                }
+                            }
+                            > 
                             <img src="http://s.hancongcong.com/img.jpeg" ref={
                                 (e)=>{
                                     if(!e){
@@ -52,7 +38,7 @@ class List extends React.Component {
                                     }
                                 }
                             } style = {{opacity:0.08}} />
-                            <a href={el.href}><span>{el.name}</span></a>
+                            <span className="name">{el.name}</span>
                             <span> ¥{el.price} </span>
                             {el.pricechange===0?'':(<span>价格
                             {el.pricechange>0?'增加':'减少'}
@@ -62,16 +48,10 @@ class List extends React.Component {
                             </span>)}
                         </div>
                     ))}
-                </div>
-                </PullToRefresh>
             </div>
         )
     }
     componentDidMount() {
-        const hei = this.state.height - ReactDOM.findDOMNode(this.ptr).offsetTop;
-        this.setState({
-            height: hei
-        });
     }
 }
 export default List;

@@ -5,19 +5,20 @@ let Veromoda = require('./shops/veromoda.js');
 let Zara = require('./shops/zara.js');
 const time = 12*3600*1000;
 
-setInterval(()=>{
-    new Hm().run();
-},time)
-setInterval(()=>{
-    new Zara().run();
-},time)
-setInterval(()=>{
-    new Uniqlo().run();
-},time)
-setInterval(()=>{
-    new Veromoda().run();
-},time)
-setInterval(()=>{
-    new Only().run();
-},time)
+function run(){
+    return [Hm,Zara,Uniqlo,Veromoda,Only].map((item)=>{
+        if(process.env.NODE_ENV !== 'dev'){
+            setInterval(()=>{
+                new item().run();
+            },time);
+        }else{
+            setTimeout(()=>{
+                new item().run();
+            },0)
+        }
+        return item;
+    });
+}
+
+run();
 

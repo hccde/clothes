@@ -3,6 +3,8 @@ let Database = require('../../lib/tools/database');
 let List = require('./list.controller');
 let History = require('./history.controller');
 let Random = require('./random.controller');
+let newItem = require('./newItem.controller');
+let search = require('./search.controller');
 
 function bootstrap(app){
 	app.get('/list', function (req, res) {
@@ -16,6 +18,13 @@ function bootstrap(app){
 	app.get('/random', function (req, res) {
 		Random(req,res);
 	});
+
+	app.get('/newItem', function (req, res) {
+		newItem(req,res);
+	});
+	app.get('/search',function(req,res){
+		search(req,res);
+	})
 	app.get('/history',function(req,res){
 		saveIp({
 			id:String(req.connection.remoteAddress),

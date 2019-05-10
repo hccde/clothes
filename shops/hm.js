@@ -115,7 +115,8 @@ class HM extends Shop {
 	handler(str){
 		let $ = cheerio.load(str);
 		let res = [];
-		option.total = $('.listing-total-count').data().totalCount;
+		//todo
+		option.total = parseInt($('.total-count').text());
 		let host = option.host;
 		try{
 			$('.product-item').each(function(index,el){
